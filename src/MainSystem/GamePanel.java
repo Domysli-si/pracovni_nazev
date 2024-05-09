@@ -4,6 +4,7 @@ import Entity.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -30,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
     int playerY = 100;
     int playerSpeed = 4;
 
-    public GamePanel() {
+    public GamePanel() throws IOException {
         this.setPreferredSize((new Dimension(screenWidth, screenHeight)));
         this.setBackground((Color.black));
         this.setDoubleBuffered(true); // For better rendering performenc

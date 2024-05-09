@@ -14,20 +14,26 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler kH;
 
-    public Player(GamePanel gp, KeyHandler kH) {
+    //Initialize movement on single screen.
+    public final int screenX;
+    public final int screenY;
+
+
+    public Player(GamePanel gp, KeyHandler kH) throws IOException {
         this.gp = gp;
         this.kH = kH;
+
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+
         setDefaultValues();
-        try {
-            getPlayerImage();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        getPlayerImage();
     }
 
+    //global movement
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
+        worldX = gp.tileSize * 23;
+        worldY = gp.tileSize * 21;
         speed = 7;
         direction = "down";
     }
@@ -49,19 +55,19 @@ public class Player extends Entity {
         //Standing
         if (kH.upPressed || kH.downPressed || kH.leftPressed || kH.rightPressed) {
 
-            //Specic keys and atributs for movement.
+            //Specific keys and atributs for movement.
             if (kH.upPressed) {
                 direction = "up";
-                y -= speed;
+                worldY -= speed;
             } else if (kH.downPressed) {
                 direction = "down";
-                y += speed;
+                worldY += speed;
             } else if (kH.leftPressed) {
                 direction = "left";
-                x -= speed;
+                worldX -= speed;
             } else if (kH.rightPressed) {
                 direction = "right";
-                x += speed;
+                worldX += speed;
             }
 
             //Walking animation.
@@ -117,7 +123,7 @@ public class Player extends Entity {
                 }
                 break;
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
 

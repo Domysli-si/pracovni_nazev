@@ -54,7 +54,7 @@ public class TileManager {
         while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
             String line = br.readLine();
 
-            while (col < gp.maxScreenCol) {
+            while (col < gp.maxWorldCol) {
                 String[] numbers = line.split(" ");
                 int num = Integer.parseInt(numbers[col]);
                 mapTileNum[col][row] = num;
@@ -73,9 +73,7 @@ public class TileManager {
     public void draw(Graphics2D g2) {
 
         int worldCol = 0;
-
         int worldRow = 0;
-
 
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
             int tileNum = mapTileNum[worldCol][worldRow];
@@ -85,11 +83,12 @@ public class TileManager {
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
             if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-                worldY - gp.tileSize < gp.player.worldY - gp.player.screenY) {
+                    worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
+                    worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
+                    worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
                 g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
             }
+
             worldCol++;
 
             if (worldCol == gp.maxWorldCol) {

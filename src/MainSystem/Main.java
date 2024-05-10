@@ -8,16 +8,17 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("MG");
+        window.setTitle("Rosenrot");
 
-        GamePanel gP = new GamePanel();
-        window.add(gP);
+        GamePanel gp = new GamePanel();
+        window.add(gp);
 
-        window.pack();// Scaling size by our defenition
+        window.pack();
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
-        gP.startGameThread();
+        gp.setupGame();
+        gp.startGameThread();
     }
 }

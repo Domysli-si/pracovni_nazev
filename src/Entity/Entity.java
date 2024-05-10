@@ -10,7 +10,9 @@ public class Entity {
     public String direction;
     public int spriteCounter = 0;
     public int spriteNumber = 1;
+    //for player
     public Rectangle solidArea;
+    //for interacting with items
+    public int solidAreaDefaultX,solidAreaDefaultY;
     public boolean collisionOn = false;
-
 }

@@ -1,9 +1,11 @@
 package MainSystem;
 
 import Entity.Player;
-import MainSystem.object.SuperObject;
-import MainSystem.tile.TileManager;
+import object.SuperObject;
+import tile.TileManager;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -22,17 +24,19 @@ public class GamePanel extends JPanel implements Runnable {
     //World Map parametrs
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = tileSize * maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
 
     //FPS
     int FPS = 60;
 
+    //System
     TileManager tileManager = new TileManager(this);
     KeyHandler kH = new KeyHandler();
-    Thread gameThread;
+    Sound sound = new Sound();
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
+    Thread gameThread;
+
+    //Entity and Object
     public Player player = new Player(this, kH);
     public SuperObject[] superObject = new SuperObject[10];
 
@@ -45,8 +49,9 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
     }
 
-    public void setupGame() throws IOException {
+    public void setupGame() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         assetSetter.setObject();
+        playMusic(0);
     }
 
 
@@ -71,7 +76,11 @@ public class GamePanel extends JPanel implements Runnable {
             lastTime = currentTime;
 
             if (delta >= 1) {
-                update();
+                try {
+                    update();
+                } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                    throw new RuntimeException(e);
+                }
                 repaint();
                 delta--;
                 drawCount++;
@@ -90,7 +99,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     //Update player position
-    public void update() {
+    public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         player.update();
     }
 
@@ -104,9 +113,9 @@ public class GamePanel extends JPanel implements Runnable {
         tileManager.draw(g2);
 
         //Object
-        for (int i = 0; i <superObject.length;i++){
-            if(superObject[i] != null){
-                superObject[i].draw(g2, this);
+        for (SuperObject object : superObject) {
+            if (object != null) {
+                object.draw(g2, this);
             }
 
         }
@@ -116,4 +125,21 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2.dispose();
     }
+
+    //Constantly play sound()
+    public void playMusic(int i) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+
+    public void stopMusic() {
+        sound.stop();
+    }
+
+    public void playSE(int i) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        sound.setFile(i);
+        sound.play();
+    }
+
 }

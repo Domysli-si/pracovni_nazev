@@ -1,8 +1,9 @@
 package MainSystem;
 
-import MainSystem.object.OBJ_Chest;
-import MainSystem.object.OBJ_Door;
-import MainSystem.object.OBJ_Key;
+import object.OBJ_Boots;
+import object.OBJ_Chest;
+import object.OBJ_Door;
+import object.OBJ_Key;
 
 import java.io.IOException;
 
@@ -52,6 +53,10 @@ public class AssetSetter {
         gp.superObject[6].worldX = 10 * gp.tileSize;
         gp.superObject[6].worldY = 9 * gp.tileSize;
 
+        gp.superObject[7] = new OBJ_Boots();
+        //Item coordinates
+        gp.superObject[7].worldX = 37 * gp.tileSize;
+        gp.superObject[7].worldY = 42 * gp.tileSize;
 
     }
 

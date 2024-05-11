@@ -4,6 +4,8 @@ import MainSystem.GamePanel;
 import MainSystem.KeyHandler;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -47,6 +49,8 @@ public class Player extends Entity {
         direction = "down";
     }
 
+
+    //Loading player images
     public void getPlayerImage() throws IOException {
         up1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
         up2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_2.png"));
@@ -60,7 +64,7 @@ public class Player extends Entity {
 
     }
 
-    public void update() {
+    public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         //Standing
         if (kH.upPressed || kH.downPressed || kH.leftPressed || kH.rightPressed) {
 
@@ -117,28 +121,36 @@ public class Player extends Entity {
     }
 
     //Choosing what happens with item if player touches it.
-    public void pickUpObject(int i) {
+    public void pickUpObject(int i) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if (i != 999) {
             String objectName = gp.superObject[i].name;
 
             switch (objectName) {
                 case "Key":
+                    gp.playSE(1);
                     hasKey++;
                     gp.superObject[i]=null;
                     System.out.println("key: "+ hasKey);
                     break;
                 case "Door":
                     if(hasKey>0){
+                        gp.playSE(3);
                         gp.superObject[i]=null;
                         hasKey--;
                         System.out.println("key: "+ hasKey);
                     }
+                    break;
+                case"Boots":
+                    gp.playSE(2);
+                    speed*=2;
+                    gp.superObject[i]=null;
                     break;
             }
         }
 
     }
 
+    //draw player's movement
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         switch (direction) {
@@ -178,6 +190,4 @@ public class Player extends Entity {
         }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
-
-
 }

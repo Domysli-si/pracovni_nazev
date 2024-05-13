@@ -2,6 +2,7 @@ package Entity;
 
 import MainSystem.GamePanel;
 import MainSystem.KeyHandler;
+import MainSystem.UtilityTool;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
@@ -52,16 +53,23 @@ public class Player extends Entity {
 
     //Loading player images
     public void getPlayerImage() throws IOException {
-        up1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
-        up2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_2.png"));
-        down1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_1.png"));
-        down2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_2.png"));
-        left1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_1.png"));
-        left2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_2.png"));
-        right1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_1.png"));
-        right2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_2.png"));
+        up1 = setup("boy_up_1");
+        up2 = setup("boy_up_2");
+        down1 = setup("boy_down_1");
+        down2 = setup("boy_down_2");
+        left1 = setup("boy_left_1");
+        left2 = setup("boy_left_2");
+        right1 = setup("boy_right_1");
+        right2 = setup("boy_right_2");
+    }
 
 
+    public BufferedImage setup(String imageName) throws IOException {
+        UtilityTool utilityTool = new UtilityTool();
+        BufferedImage image = null;
+        image = ImageIO.read(getClass().getResourceAsStream("/player/"+imageName+".png"));
+        image = utilityTool.scaleImage(image, gp.tileSize,gp.tileSize);
+        return image;
     }
 
     public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
@@ -138,7 +146,7 @@ public class Player extends Entity {
                         gp.superObject[i] = null;
                         hasKey--;
                         gp.ui.showMessage("You opened the door. ");
-                    }else{
+                    } else {
                         gp.ui.showMessage("You need a key.");
                     }
                     break;
@@ -148,7 +156,7 @@ public class Player extends Entity {
                     gp.superObject[i] = null;
                     gp.ui.showMessage("Speed up!");
                     break;
-                case"Chest":
+                case "Chest":
                     gp.ui.gameFinished = true;
                     gp.stopMusic();
                     gp.playSE(4);
@@ -196,6 +204,6 @@ public class Player extends Entity {
                 }
                 break;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
     }
 }

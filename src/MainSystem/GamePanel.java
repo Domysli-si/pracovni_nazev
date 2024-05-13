@@ -1,7 +1,7 @@
 package MainSystem;
 
 import Entity.Player;
-import object.SuperObject;
+import Objects.SuperObject;
 import tile.TileManager;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -31,15 +31,16 @@ public class GamePanel extends JPanel implements Runnable {
     //System
     TileManager tileManager = new TileManager(this);
     KeyHandler kH = new KeyHandler();
-    Sound sound = new Sound();
+    Sound se = new Sound();
+    Sound music = new Sound();
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
-    Thread gameThread;
-
+    public UI ui = new UI(this);
     //Entity and Object
     public Player player = new Player(this, kH);
     public SuperObject[] superObject = new SuperObject[10];
 
+    Thread gameThread;
 
     public GamePanel() throws IOException {
         this.setPreferredSize((new Dimension(screenWidth, screenHeight)));
@@ -123,23 +124,26 @@ public class GamePanel extends JPanel implements Runnable {
         //Player
         player.draw(g2);
 
+        //UI
+        ui.draw(g2);
+
         g2.dispose();
     }
 
     //Constantly play sound()
     public void playMusic(int i) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
+        music.setFile(i);
+        music.play();
+        music.loop();
     }
 
     public void stopMusic() {
-        sound.stop();
+        music.stop();
     }
 
     public void playSE(int i) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        sound.setFile(i);
-        sound.play();
+        se.setFile(i);
+        se.play();
     }
 
 }

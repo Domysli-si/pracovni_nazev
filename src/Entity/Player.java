@@ -18,7 +18,7 @@ public class Player extends Entity {
     //Initialize movement on single screen.
     public final int screenX;
     public final int screenY;
-    int hasKey = 0;
+    public int hasKey = 0;
 
 
     public Player(GamePanel gp, KeyHandler kH) throws IOException {
@@ -129,21 +129,29 @@ public class Player extends Entity {
                 case "Key":
                     gp.playSE(1);
                     hasKey++;
-                    gp.superObject[i]=null;
-                    System.out.println("key: "+ hasKey);
+                    gp.superObject[i] = null;
+                    gp.ui.showMessage("You got a key. ");
                     break;
                 case "Door":
-                    if(hasKey>0){
+                    if (hasKey > 0) {
                         gp.playSE(3);
-                        gp.superObject[i]=null;
+                        gp.superObject[i] = null;
                         hasKey--;
-                        System.out.println("key: "+ hasKey);
+                        gp.ui.showMessage("You opened the door. ");
+                    }else{
+                        gp.ui.showMessage("You need a key.");
                     }
                     break;
-                case"Boots":
+                case "Boots":
                     gp.playSE(2);
-                    speed*=2;
-                    gp.superObject[i]=null;
+                    speed *= 2;
+                    gp.superObject[i] = null;
+                    gp.ui.showMessage("Speed up!");
+                    break;
+                case"Chest":
+                    gp.ui.gameFinished = true;
+                    gp.stopMusic();
+                    gp.playSE(4);
                     break;
             }
         }

@@ -16,21 +16,23 @@ public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 16;//16x16 = size of any character in game
     final int scale = 3;
     public final int tileSize = originalTileSize * scale; // 48 x 48 tile
-    public final int maxScreenCol = 40;
-    public final int maxScreenRow = 10;
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     //World Map parameters.
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
+    public final int worldWidth = tileSize*maxWorldCol;
+    public final int worldHeight = tileSize*maxWorldRow;
 
     //FPS
     int FPS = 60;
 
     //System
     TileManager tileManager = new TileManager(this);
-    KeyHandler kH = new KeyHandler();
+    KeyHandler kH = new KeyHandler(this);
     Sound se = new Sound();
     Sound music = new Sound();
     public CollisionChecker collisionChecker = new CollisionChecker(this);
@@ -39,6 +41,11 @@ public class GamePanel extends JPanel implements Runnable {
     //Entity and Object
     public Player player = new Player(this, kH);
     public SuperObject[] superObject = new SuperObject[10];
+
+    //Game state
+    public int gameState;
+    public final  int playState = 1;
+    public final int pauseState = 2;
 
     Thread gameThread;
 
@@ -53,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         assetSetter.setObject();
         playMusic(0);
+        gameState = playState;
     }
 
 
@@ -101,7 +109,14 @@ public class GamePanel extends JPanel implements Runnable {
 
     //Update player position
     public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        player.update();
+        if(gameState== playState){
+            player.update();
+        }
+        if(gameState == pauseState){
+            //nothing
+        }
+
+
     }
 
     public void paintComponent(Graphics g) {

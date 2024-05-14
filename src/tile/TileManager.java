@@ -5,7 +5,6 @@ import MainSystem.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +17,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) throws IOException {
         this.gp = gp;
-        tile = new Tile[10];
+        tile = new Tile[50];
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
         loadMap("/maps/world01.txt");
@@ -35,10 +34,10 @@ public class TileManager {
     }
 
     //Sett up path to files.
-    public void setup(int index, String imageName, boolean collision) throws IOException{
+    public void setup(int index, String imageName, boolean collision) throws IOException {
         UtilityTool utilityTool = new UtilityTool();
         tile[index] = new Tile();
-        tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imageName+ ".png"));
+        tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imageName + ".png"));
         tile[index].image = utilityTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
         tile[index].collision = collision;
 
@@ -82,11 +81,39 @@ public class TileManager {
             int screenX = worldX - gp.player.worldX + gp.player.screenX;
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
+            //Stop moving camera on the edge.
+            //left side
+            if (gp.player.screenX > gp.player.worldX) {
+                screenX = worldX;
+            }
+            //top side
+            if (gp.player.screenY > gp.player.worldY) {
+                screenY = worldY;
+            }
+            //right side
+            int rightOffSet = gp.screenWidth - gp.player.screenX;
+            if (rightOffSet > gp.worldWidth - gp.player.worldX) {
+                screenX = gp.screenWidth - (gp.worldWidth - worldX);
+            }
+
+            //right side
+            int bottomOffSet = gp.screenHeight - gp.player.screenY;
+            if (bottomOffSet > gp.worldHeight - gp.player.worldY) {
+                screenY = gp.screenHeight - (gp.worldHeight - worldY);
+            }
+
+
             if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
                     worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
                     worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                     worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
-                g2.drawImage(tile[tileNum].image, screenX, screenY,  null);
+                g2.drawImage(tile[tileNum].image, screenX, screenY, null);
+            }
+            else if (gp.player.screenX > gp.player.worldX ||
+                    gp.player.screenY > gp.player.worldY ||
+                    rightOffSet > gp.worldWidth - gp.player.worldX ||
+                    bottomOffSet > gp.worldHeight - gp.player.worldY) {
+                g2.drawImage(tile[tileNum].image, screenX, screenY, null);
             }
 
             worldCol++;

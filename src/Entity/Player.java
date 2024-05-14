@@ -19,7 +19,7 @@ public class Player extends Entity {
     //Initialize movement on single screen.
     public final int screenX;
     public final int screenY;
-    public int hasKey = 0;
+    int standCounter = 0;
 
 
     public Player(GamePanel gp, KeyHandler kH) throws IOException {
@@ -67,8 +67,8 @@ public class Player extends Entity {
     public BufferedImage setup(String imageName) throws IOException {
         UtilityTool utilityTool = new UtilityTool();
         BufferedImage image = null;
-        image = ImageIO.read(getClass().getResourceAsStream("/player/"+imageName+".png"));
-        image = utilityTool.scaleImage(image, gp.tileSize,gp.tileSize);
+        image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
+        image = utilityTool.scaleImage(image, gp.tileSize, gp.tileSize);
         return image;
     }
 
@@ -130,39 +130,6 @@ public class Player extends Entity {
 
     //Choosing what happens with item if player touches it.
     public void pickUpObject(int i) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        if (i != 999) {
-            String objectName = gp.superObject[i].name;
-
-            switch (objectName) {
-                case "Key":
-                    gp.playSE(1);
-                    hasKey++;
-                    gp.superObject[i] = null;
-                    gp.ui.showMessage("You got a key. ");
-                    break;
-                case "Door":
-                    if (hasKey > 0) {
-                        gp.playSE(3);
-                        gp.superObject[i] = null;
-                        hasKey--;
-                        gp.ui.showMessage("You opened the door. ");
-                    } else {
-                        gp.ui.showMessage("You need a key.");
-                    }
-                    break;
-                case "Boots":
-                    gp.playSE(2);
-                    speed *= 2;
-                    gp.superObject[i] = null;
-                    gp.ui.showMessage("Speed up!");
-                    break;
-                case "Chest":
-                    gp.ui.gameFinished = true;
-                    gp.stopMusic();
-                    gp.playSE(4);
-                    break;
-            }
-        }
 
     }
 
@@ -204,6 +171,25 @@ public class Player extends Entity {
                 }
                 break;
         }
+        int x = screenX;
+        int y = screenY;
+
+        if (screenX > worldX) {
+            x = worldX;
+        }
+        if (screenY > worldY) {
+            y = worldY;
+        }
+        int rightOffSet = gp.screenWidth - screenX;
+        if (rightOffSet > gp.worldWidth - worldX) {
+            x = gp.screenWidth - (gp.worldWidth - worldX);
+        }
+        int bottomOffSet = gp.screenHeight - screenY;
+        if (bottomOffSet > gp.worldHeight - worldY) {
+            y = gp.screenHeight - (gp.worldHeight - worldY);
+        }
+
+
         g2.drawImage(image, screenX, screenY, null);
     }
 }

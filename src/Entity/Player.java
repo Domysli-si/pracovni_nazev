@@ -2,9 +2,7 @@ package Entity;
 
 import MainSystem.GamePanel;
 import MainSystem.KeyHandler;
-import MainSystem.UtilityTool;
 
-import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
@@ -13,7 +11,6 @@ import java.io.IOException;
 
 
 public class Player extends Entity {
-    GamePanel gp;
     KeyHandler kH;
 
     //Initialize movement on single screen.
@@ -23,7 +20,7 @@ public class Player extends Entity {
 
 
     public Player(GamePanel gp, KeyHandler kH) throws IOException {
-        this.gp = gp;
+        super(gp);
         this.kH = kH;
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
@@ -53,24 +50,16 @@ public class Player extends Entity {
 
     //Loading player images
     public void getPlayerImage() throws IOException {
-        up1 = setup("boy_up_1");
-        up2 = setup("boy_up_2");
-        down1 = setup("boy_down_1");
-        down2 = setup("boy_down_2");
-        left1 = setup("boy_left_1");
-        left2 = setup("boy_left_2");
-        right1 = setup("boy_right_1");
-        right2 = setup("boy_right_2");
+        up1 = setup("/player/boy_up_1");
+        up2 = setup("/player/boy_up_2");
+        down1 = setup("/player/boy_down_1");
+        down2 = setup("/player/boy_down_2");
+        left1 = setup("/player/boy_left_1");
+        left2 = setup("/player/boy_left_2");
+        right1 = setup("/player/boy_right_1");
+        right2 = setup("/player/boy_right_2");
     }
 
-
-    public BufferedImage setup(String imageName) throws IOException {
-        UtilityTool utilityTool = new UtilityTool();
-        BufferedImage image = null;
-        image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
-        image = utilityTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        return image;
-    }
 
     public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         //Standing
@@ -95,6 +84,10 @@ public class Player extends Entity {
             int objIndex = gp.collisionChecker.checkObject(this, true);
             pickUpObject(objIndex);
 
+            //Check NPc collision
+            int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
+
             //collision is false => player can move
             if (!collisionOn) {
                 switch (direction) {
@@ -112,24 +105,39 @@ public class Player extends Entity {
                         break;
                 }
             }
-
-            //Walking animation.
             spriteCounter++;
-            if (spriteCounter > 10) {
+            if (spriteCounter > 12) {
                 if (spriteNumber == 1) {
                     spriteNumber = 2;
                 } else if (spriteNumber == 2) {
                     spriteNumber = 1;
                 }
                 spriteCounter = 0;
+            } else {
+                //Walking animation.!!!
+                standCounter++;
+                if (standCounter == 20) {
+                    spriteNumber = 1;
+                    standCounter = 0;
+                }
             }
         }
-
-
     }
 
     //Choosing what happens with item if player touches it.
-    public void pickUpObject(int i) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void pickUpObject(int i) {
+
+        if (i != 999) {
+
+        }
+
+    }
+
+    public void interactNPC(int i) {
+
+        if (i != 999) {
+            System.out.println("You are hitting an npc! ");
+        }
 
     }
 

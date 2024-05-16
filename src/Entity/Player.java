@@ -41,8 +41,10 @@ public class Player extends Entity {
 
     //Movement
     public void setDefaultValues() {
-        worldX = gp.tileSize * 23;
-        worldY = gp.tileSize * 21;
+        //Spawn point
+        worldX = gp.tileSize *21;
+        worldY = gp.tileSize *23;
+
         speed = 7;
         direction = "down";
     }
@@ -78,7 +80,7 @@ public class Player extends Entity {
 
             //check tile collision
             collisionOn = false;
-            gp.collisionChecker.checkTile(this);
+            //gp.collisionChecker.checkTile(this);
 
             //Check object collision
             int objIndex = gp.collisionChecker.checkObject(this, true);
@@ -136,9 +138,12 @@ public class Player extends Entity {
     public void interactNPC(int i) {
 
         if (i != 999) {
-            System.out.println("You are hitting an npc! ");
+            if(gp.kH.enterPressed){
+                gp.gameState = gp.dialogState;
+                gp.npc[i].speak();
+            }
         }
-
+        gp.kH.enterPressed= false;
     }
 
     //draw player's movement

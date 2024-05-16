@@ -9,8 +9,9 @@ public class NPC_OldMan extends Entity {
     public NPC_OldMan(GamePanel gp) throws IOException {
         super(gp);
         direction = "down";
-        speed = 14;
+        speed = 3;
         getImage();
+        setDialogue();
     }
 
     public void getImage() throws IOException {
@@ -22,6 +23,13 @@ public class NPC_OldMan extends Entity {
         left2 = setup("/npc/oldman_left_2");
         right1 = setup("/npc/oldman_right_1");
         right2 = setup("/npc/oldman_right_2");
+    }
+
+    public void setDialogue() {
+        dialogues[0] = "Cau Maxi.";
+        dialogues[1] = "Jak se mas?";
+        dialogues[2] = "Pamatujes si kdy mas narozky?";
+        dialogues[3] = "Jestli jo tak mi to rekni.";
     }
 
 
@@ -40,10 +48,15 @@ public class NPC_OldMan extends Entity {
             if (i > 50 && i <= 75) {
                 direction = "left";
             }
-            if (i > 75 && i <= 100) {
+            if (i > 75) {
                 direction = "right";
             }
-            actionLookCounter =0;
+            actionLookCounter = 0;
         }
+    }
+
+    //For specification.
+    public void speak() {
+    super.speak();
     }
 }

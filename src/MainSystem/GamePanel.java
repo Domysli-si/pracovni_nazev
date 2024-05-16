@@ -25,15 +25,15 @@ public class GamePanel extends JPanel implements Runnable {
     //World Map parameters.
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = tileSize*maxWorldCol;
-    public final int worldHeight = tileSize*maxWorldRow;
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
 
     //FPS
     int FPS = 60;
 
     //System
     TileManager tileManager = new TileManager(this);
-    KeyHandler kH = new KeyHandler(this);
+    public KeyHandler kH = new KeyHandler(this);
     Sound se = new Sound();
     Sound music = new Sound();
     public CollisionChecker collisionChecker = new CollisionChecker(this);
@@ -44,10 +44,13 @@ public class GamePanel extends JPanel implements Runnable {
     public SuperObject[] superObject = new SuperObject[10];
     public Entity[] npc = new Entity[5];
 
-    //Game state
+    //Game states
     public int gameState;
-    public final  int playState = 1;
+    public final int titleState = 0;
+    public final int playState = 1;
     public final int pauseState = 2;
+    public final int dialogState = 3;
+
 
     Thread gameThread;
 
@@ -62,8 +65,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         assetSetter.setObject();
         assetSetter.setNPC();
-        playMusic(0);
-        gameState = playState;
+        //playMusic(0);
+        gameState = titleState;
     }
 
 
@@ -112,12 +115,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     //Update player position
     public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        if(gameState== playState){
+        if (gameState == playState) {
             //Player
             player.update();
             //NPC
-            for (int i = 0; i < npc.length;i++){
-                if (npc[i] != null){
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
                     npc[i].update();
 
                 }
@@ -125,7 +128,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
 
-        if(gameState == pauseState){
+        if (gameState == pauseState) {
             //nothing
         }
 
@@ -144,29 +147,36 @@ public class GamePanel extends JPanel implements Runnable {
             drawStart = System.nanoTime();
         }
 
-
-        //Tile
-        tileManager.draw(g2);
-
-        //Object
-        for (SuperObject object : superObject) {
-            if (object != null) {
-                object.draw(g2, this);
-            }
-
-        }
-        //NPC
-        for (int i=0; i< npc.length;i++){
-            if(npc[i]!= null){
-                npc[i].draw(g2);
-            }
+        //Title screen
+        if (gameState == titleState) {
+            ui.draw(g2);
         }
 
-        //Player
-        player.draw(g2);
+        //others
+        else {
+            //Tile
+            tileManager.draw(g2);
 
-        //UI
-        ui.draw(g2);
+            //Object
+            for (SuperObject object : superObject) {
+                if (object != null) {
+                    object.draw(g2, this);
+                }
+
+            }
+            //NPC
+            for (Entity entity : npc) {
+                if (entity != null) {
+                    entity.draw(g2);
+                }
+            }
+
+            //Player
+            player.draw(g2);
+
+            //UI
+            ui.draw(g2);
+        }
 
         //DEBUG
         if (kH.checkDrawTime) {

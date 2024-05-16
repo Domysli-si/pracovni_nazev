@@ -68,7 +68,7 @@ public class TileManager {
         br.close();
     }
 
-    //Drawing map01.txt
+    //Drawing map
     public void draw(Graphics2D g2) {
 
         int worldCol = 0;

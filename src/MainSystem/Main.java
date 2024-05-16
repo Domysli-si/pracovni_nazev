@@ -10,7 +10,7 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("Rosenrot");
+        window.setTitle("Pracovni nazev");
 
         GamePanel gp = new GamePanel();
         window.add(gp);

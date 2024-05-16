@@ -24,12 +24,40 @@ public class Entity {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
     public int actionLookCounter;
+    String[] dialogues = new String[20];
+    int dialogueIndex = 0;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
 
     public void setAction() {
+    }
+
+    //Face to face
+    public void speak() {
+        if (dialogues[dialogueIndex] == null) {
+            dialogueIndex = 0;
+        }
+        gp.ui.currentDialog = dialogues[dialogueIndex];
+        dialogueIndex++;
+
+        switch (gp.player.direction) {
+            case "up":
+                direction = "down";
+                break;
+            case "down":
+                direction = "up";
+                break;
+            case "left":
+                direction = "right";
+                break;
+            case "right":
+                direction = "left";
+                break;
+
+
+        }
     }
 
     public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
@@ -54,14 +82,15 @@ public class Entity {
                     worldX += speed;
                     break;
             }
-        }spriteCounter++;
-        if(spriteCounter >12){
-            if(spriteNumber==1){
+        }
+        spriteCounter++;
+        if (spriteCounter > 12) {
+            if (spriteNumber == 1) {
                 spriteNumber = 2;
-            }else if (spriteNumber == 2){
-                spriteNumber=1;
+            } else if (spriteNumber == 2) {
+                spriteNumber = 1;
             }
-            spriteCounter =0;
+            spriteCounter = 0;
         }
     }
 

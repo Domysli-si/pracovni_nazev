@@ -11,6 +11,7 @@ public class UI {
 
     GamePanel gp;
     Graphics2D g2;
+
     Font arial_40, arial_80B;
     BufferedImage heart_full, heart_half, heart_blank;
     public boolean messageOn = false;
@@ -50,6 +51,7 @@ public class UI {
         //Play State
         if (gp.gameState == gp.playState) {
             drawPlayerLife();
+
         }
         //Pause state
         if (gp.gameState == gp.pauseState) {
@@ -111,6 +113,7 @@ public class UI {
             //Shadow
             g2.setColor(Color.black);
             g2.drawString(text, x + 5, y + 5);
+
             //Main color
             g2.setColor(Color.white);
             g2.drawString(text, x, y);
@@ -146,6 +149,7 @@ public class UI {
                 g2.drawString(">", x - gp.tileSize, y);
             }
         } else if (titleScreenState == 1) {
+
             //Class selection screen
             g2.setColor(Color.white);
             g2.setFont(g2.getFont().deriveFont(42F));
@@ -190,7 +194,7 @@ public class UI {
 
     }
 
-    //Drawing everything about pause screen.
+    //Drawing pause screen.
     public void drawPauseScreen() {
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
         String text = "Paused!";

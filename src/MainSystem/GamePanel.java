@@ -23,8 +23,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     //World Map parameters.
-    public final int maxWorldCol = 50*2;
-    public final int maxWorldRow = 50*2;
+    public final int maxWorldCol = 50 * 2;
+    public final int maxWorldRow = 50 * 2;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 
@@ -39,6 +39,8 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
     public UI ui = new UI(this);
+    public EventHandler eventHandler = new EventHandler(this);
+
     //Entity and Object
     public Player player = new Player(this, kH);
     public SuperObject[] superObject = new SuperObject[10];
@@ -65,7 +67,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         assetSetter.setObject();
         assetSetter.setNPC();
-        //playMusic(0);
+        playMusic(0);
         gameState = titleState;
     }
 
@@ -118,6 +120,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == playState) {
             //Player
             player.update();
+
             //NPC
             for (int i = 0; i < npc.length; i++) {
                 if (npc[i] != null) {

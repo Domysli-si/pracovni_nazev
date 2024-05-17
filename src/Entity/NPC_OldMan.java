@@ -9,7 +9,7 @@ public class NPC_OldMan extends Entity {
     public NPC_OldMan(GamePanel gp) throws IOException {
         super(gp);
         direction = "down";
-        speed = 3;
+        speed = 10;
         getImage();
         setDialogue();
     }
@@ -26,15 +26,15 @@ public class NPC_OldMan extends Entity {
     }
 
     public void setDialogue() {
-        dialogues[0] = "Cau Maxi.";
-        dialogues[1] = "Jak se mas?";
-        dialogues[2] = "Pamatujes si kdy mas narozky?";
-        dialogues[3] = "Jestli jo tak mi to rekni.";
+        dialogues[0] = "d1";
+        dialogues[1] = "d2";
+        dialogues[2] = "d3";
+        dialogues[3] = "d4";
     }
 
 
     //Setting movement for NPC
-    public void setAction() {
+   public void setAction() {
         actionLookCounter++;
         if (actionLookCounter == 120) {
             Random random = new Random();

@@ -45,10 +45,14 @@ public class Player extends Entity {
         worldX = gp.tileSize *21;
         worldY = gp.tileSize *23;
 
-        speed = 7;
+        //speed
+        speed = 13;
         direction = "down";
-    }
 
+        //life stats
+        maxLife = 12;
+        life = maxLife;
+    }
 
     //Loading player images
     public void getPlayerImage() throws IOException {
@@ -80,7 +84,7 @@ public class Player extends Entity {
 
             //check tile collision
             collisionOn = false;
-            //gp.collisionChecker.checkTile(this);
+            gp.collisionChecker.checkTile(this);
 
             //Check object collision
             int objIndex = gp.collisionChecker.checkObject(this, true);
@@ -115,13 +119,6 @@ public class Player extends Entity {
                     spriteNumber = 1;
                 }
                 spriteCounter = 0;
-            } else {
-                //Walking animation.!!!
-                standCounter++;
-                if (standCounter == 20) {
-                    spriteNumber = 1;
-                    standCounter = 0;
-                }
             }
         }
     }
@@ -157,7 +154,6 @@ public class Player extends Entity {
                 if (spriteNumber == 2) {
                     image = up2;
                 }
-
                 break;
             case "down":
                 if (spriteNumber == 1) {

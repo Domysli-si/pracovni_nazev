@@ -1,12 +1,14 @@
-package Objects;
+package SuperObject.Items;
 
 import MainSystem.GamePanel;
+import MainSystem.UtilityTool;
+import SuperObject.SuperObject;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
 public class OBJ_Key extends SuperObject {
-
+    UtilityTool utilityTool;
     GamePanel gp;
 
     public OBJ_Key(GamePanel gp)throws IOException {

@@ -1,4 +1,4 @@
-package TIle;
+package Tile;
 
 import MainSystem.GamePanel;
 import MainSystem.UtilityTool;
@@ -20,17 +20,17 @@ public class TileManager {
         tile = new Tile[50];
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
-        loadMap("/maps/world01.txt");
+        loadMap("/maps/world03.txt");
     }
 
     //Looking for files that are used in background.
     public void getTileImage() throws IOException {
-        setup(0, "grass01", false);
-        setup(1, "wall", true);
-        setup(2, "water00", true);
-        setup(3, "earth", false);
+        setup(1, "grass01", false);
+        setup(2, "wall", true);
+        setup(5, "water00", true);
+        setup(0, "earth", false);
         setup(4, "tree", true);
-        setup(5, "sand", false);
+        setup(3, "sand", false);
     }
 
     //Sett up path to files.
@@ -108,8 +108,7 @@ public class TileManager {
                     worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                     worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
                 g2.drawImage(tile[tileNum].image, screenX, screenY, null);
-            }
-            else if (gp.player.screenX > gp.player.worldX ||
+            } else if (gp.player.screenX > gp.player.worldX ||
                     gp.player.screenY > gp.player.worldY ||
                     rightOffSet > gp.worldWidth - gp.player.worldX ||
                     bottomOffSet > gp.worldHeight - gp.player.worldY) {

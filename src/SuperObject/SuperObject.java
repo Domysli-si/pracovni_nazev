@@ -1,4 +1,4 @@
-package Objects;
+package SuperObject;
 
 import MainSystem.GamePanel;
 import MainSystem.UtilityTool;
@@ -8,17 +8,17 @@ import java.awt.image.BufferedImage;
 
 //Like Entity class but for items.
 public class SuperObject {
-    public BufferedImage image;
+    public BufferedImage image, image2, image3;
     public String name;
     public boolean collision = false;
     public int worldX, worldY;
-    public Rectangle solidArea = new Rectangle(0,0,48,48);
+    public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
-    UtilityTool utilityTool = new UtilityTool();
+    protected UtilityTool utilityTool = new UtilityTool();
 
     //Drawing items
-    public void draw(Graphics2D g2, GamePanel gp){
+    public void draw(Graphics2D g2, GamePanel gp) {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 

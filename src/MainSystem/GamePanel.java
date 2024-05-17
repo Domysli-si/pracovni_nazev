@@ -2,8 +2,8 @@ package MainSystem;
 
 import Entity.Entity;
 import Entity.Player;
-import Objects.SuperObject;
-import TIle.TileManager;
+import SuperObject.SuperObject;
+import Tile.TileManager;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -23,8 +23,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     //World Map parameters.
-    public final int maxWorldCol = 50;
-    public final int maxWorldRow = 50;
+    public final int maxWorldCol = 50*2;
+    public final int maxWorldRow = 50*2;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 

@@ -18,14 +18,20 @@ public class Entity {
     public String direction;
     public int spriteCounter = 0;
     public int spriteNumber = 1;
+
     //default solidArea for every entity
     public Rectangle solidArea = new Rectangle(0, 0, 40, 40);
+
     //for interacting with items
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
     public int actionLookCounter;
     String[] dialogues = new String[20];
     int dialogueIndex = 0;
+
+    //Character stats
+    public int maxLife;
+    public int life;
 
     public Entity(GamePanel gp) {
         this.gp = gp;

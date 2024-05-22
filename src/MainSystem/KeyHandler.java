@@ -1,10 +1,8 @@
 package MainSystem;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
+
 
 public class KeyHandler implements KeyListener {
 

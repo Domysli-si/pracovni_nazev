@@ -1,6 +1,6 @@
 package MainSystem;
 
-import Entity.Entity;
+import Beings_things.Passive_char.Entity;
 
 public class CollisionChecker {
 
@@ -65,24 +65,24 @@ public class CollisionChecker {
     public int checkObject(Entity entity, boolean player) {
 
         int index = 999;
-        for (int i = 0; i < gp.superObject.length; i++) {
-            if (gp.superObject[i] != null) {
+        for (int i = 0; i < gp.entities.size(); i++) {
+            if (gp.entities.get(i) != null) {
 
                 //Get entity's solid area position
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
 
                 //Get object's solid area position
-                gp.superObject[i].solidArea.x = gp.superObject[i].worldX + gp.superObject[i].solidArea.x;
-                gp.superObject[i].solidArea.y = gp.superObject[i].worldY + gp.superObject[i].solidArea.y;
+                gp.entities.get(i).solidArea.x = gp.entities.get(i).worldX + gp.entities.get(i).solidArea.x;
+                gp.entities.get(i).solidArea.y = gp.entities.get(i).worldY + gp.entities.get(i).solidArea.y;
 
 
                 //Checking side collision
                 switch (entity.direction) {
                     case "up":
                         entity.solidArea.y -= entity.speed;
-                        if (entity.solidArea.intersects(gp.superObject[i].solidArea)) {
-                            if (gp.superObject[i].collision) {
+                        if (entity.solidArea.intersects(gp.entities.get(i).solidArea)) {
+                            if (gp.entities.get(i).collision) {
                                 entity.collisionOn = true;
                             }
                             if (player) {
@@ -92,8 +92,8 @@ public class CollisionChecker {
                         break;
                     case "down":
                         entity.solidArea.y += entity.speed;
-                        if (entity.solidArea.intersects(gp.superObject[i].solidArea)) {
-                            if (gp.superObject[i].collision) {
+                        if (entity.solidArea.intersects(gp.entities.get(i).solidArea)) {
+                            if (gp.entities.get(i).collision) {
                                 entity.collisionOn = true;
                             }
                             if (player) {
@@ -103,8 +103,8 @@ public class CollisionChecker {
                         break;
                     case "left":
                         entity.solidArea.x -= entity.speed;
-                        if (entity.solidArea.intersects(gp.superObject[i].solidArea)) {
-                            if (gp.superObject[i].collision) {
+                        if (entity.solidArea.intersects(gp.entities.get(i).solidArea)) {
+                            if (gp.entities.get(i).collision) {
                                 entity.collisionOn = true;
                             }
                             if (player) {
@@ -114,8 +114,8 @@ public class CollisionChecker {
                         break;
                     case "right":
                         entity.solidArea.x += entity.speed;
-                        if (entity.solidArea.intersects(gp.superObject[i].solidArea)) {
-                            if (gp.superObject[i].collision) {
+                        if (entity.solidArea.intersects(gp.entities.get(i).solidArea)) {
+                            if (gp.entities.get(i).collision) {
                                 entity.collisionOn = true;
                             }
                             if (player) {
@@ -126,8 +126,8 @@ public class CollisionChecker {
                 }
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
-                gp.superObject[i].solidArea.x = gp.superObject[i].solidAreaDefaultX;
-                gp.superObject[i].solidArea.y = gp.superObject[i].solidAreaDefaultY;
+                gp.entities.get(i).solidArea.x = gp.entities.get(i).solidAreaDefaultX;
+                gp.entities.get(i).solidArea.y = gp.entities.get(i).solidAreaDefaultY;
             }
 
         }

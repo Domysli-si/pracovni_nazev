@@ -1,4 +1,4 @@
-package Entity;
+package Beings_things.Passive_char;
 
 import MainSystem.GamePanel;
 

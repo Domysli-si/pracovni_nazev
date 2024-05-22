@@ -1,4 +1,4 @@
-package Entity;
+package Beings_things.Passive_char;
 
 import MainSystem.GamePanel;
 import MainSystem.KeyHandler;
@@ -91,8 +91,8 @@ public class Player extends Entity {
             pickUpObject(objIndex);
 
             //Check NPc collision
-            int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
-            interactNPC(npcIndex);
+           int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
+           interactNPC(npcIndex);
 
             //check event
             gp.eventHandler.checkEvent();

@@ -1,4 +1,4 @@
-package Entity;
+package Beings_things.Passive_char;
 
 import MainSystem.GamePanel;
 import MainSystem.UtilityTool;
@@ -15,7 +15,7 @@ public class Entity {
     public int worldX, worldY;
     public int speed;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    public String direction;
+    public String direction = "down";
     public int spriteCounter = 0;
     public int spriteNumber = 1;
 
@@ -28,6 +28,9 @@ public class Entity {
     public int actionLookCounter;
     String[] dialogues = new String[20];
     int dialogueIndex = 0;
+    public BufferedImage image, image2, image3;
+    public String name;
+    public boolean collision = false;
 
     //Character stats
     public int maxLife;
@@ -66,11 +69,11 @@ public class Entity {
         }
     }
 
-    public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public  void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         setAction();
         collisionOn = false;
         gp.collisionChecker.checkTile(this);
-        gp.collisionChecker.checkObject(this, false);
+        gp.collisionChecker.checkObject(this, true);
         gp.collisionChecker.checkPlayer(this);
 
         if (!collisionOn) {

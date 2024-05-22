@@ -6,7 +6,7 @@ import java.net.URL;
 
 public class Sound {
 
-    //For opening audiofile.
+    //For opening audiophile.
     Clip clip;
     URL[] soundURL = new URL[30];
 

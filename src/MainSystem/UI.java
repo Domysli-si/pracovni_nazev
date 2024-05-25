@@ -1,6 +1,6 @@
 package MainSystem;
 
-import Beings_things.Passive_char.Entity;
+import Beings_things.Passive_beings.Entity;
 import Beings_things.Stats.OBJ_Heart;
 
 import java.awt.*;

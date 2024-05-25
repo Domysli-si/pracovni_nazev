@@ -1,4 +1,4 @@
-package Beings_things.Passive_char;
+package Beings_things.Passive_beings;
 
 import MainSystem.GamePanel;
 import MainSystem.KeyHandler;

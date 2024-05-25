@@ -1,6 +1,6 @@
 package Beings_things.Stats;
 
-import Beings_things.Passive_char.Entity;
+import Beings_things.Passive_beings.Entity;
 import MainSystem.GamePanel;
 
 import java.io.IOException;

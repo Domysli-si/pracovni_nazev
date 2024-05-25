@@ -1,7 +1,7 @@
 package MainSystem;
 
-import Beings_things.Passive_char.Entity;
-import Beings_things.Passive_char.Player;
+import Beings_things.Passive_beings.Entity;
+import Beings_things.Passive_beings.Player;
 import MainSystem.Tile.TileManager;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -25,8 +25,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     //World Map parameters.
-    public final int maxWorldCol = 50 ;
-    public final int maxWorldRow = 50 ;
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 
@@ -47,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, kH);
     public Entity[] obj = new Entity[10];
     public Entity[] npc = new Entity[10];
+    public Entity[] mon = new Entity[20];
     ArrayList<Entity> entities = new ArrayList<>();
 
     //Game states
@@ -68,8 +69,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        assetSetter.setObject();
+        // assetSetter.setObject();
         assetSetter.setNPC();
+        assetSetter.setMonster();
         playMusic(0);
         gameState = titleState;
     }
@@ -120,10 +122,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     //Update player position
     public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+
         if (gameState == playState) {
             //Player
             player.update();
-
             //NPC
             for (int i = 0; i < npc.length; i++) {
                 if (npc[i] != null) {
@@ -131,20 +133,19 @@ public class GamePanel extends JPanel implements Runnable {
 
                 }
             }
+            //Monster
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
+                    npc[i].update();
+                }
+            }
         }
 
-
-        if (gameState == pauseState) {
-            //nothing
-        }
-
-
+        if (gameState == pauseState) {/*nothing*/}
     }
 
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
-
         Graphics2D g2 = (Graphics2D) g;
 
         //Debug
@@ -163,40 +164,46 @@ public class GamePanel extends JPanel implements Runnable {
             //MainSystem.Tile
             tileManager.draw(g2);
 
+            //Add entities to the list.
             entities.add(player);
 
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null) {
-                    entities.add(npc[i]);
+            for (Entity entity : npc) {
+                if (entity != null) {
+                    entities.add(entity);
                 }
             }
-            for (int i = 0; i < obj.length; i++) {
-                if (obj[i] != null) {
-                    entities.add(obj[i]);
+            for (Entity entity : obj) {
+                if (entity != null) {
+                    entities.add(entity);
                 }
             }
-
-            //Giving priority by sort methods
-            Collections.sort(entities, new Comparator<Entity>() {
-                @Override
-                public int compare(Entity o1, Entity o2) {
-                    int result = Integer.compare(o1.worldX, o2.worldY);
-                    return result;
+            for (Entity entity : mon) {
+                if (entity != null) {
+                    entities.add(entity);
                 }
-            });
 
-            //Draw entities
-            for (int i = 0; i < entities.size(); i++) {
-                entities.get(i).draw(g2);
-            }
-            //Empty list
-            for (int i = 0; i < entities.size(); i++) {
-                entities.remove(i);
-            }
 
-            //UI
-            ui.draw(g2);
-        }
+                //Giving priority by sort methods
+                Collections.sort(entities, new Comparator<Entity>() {
+                    @Override
+                    public int compare(Entity o1, Entity o2) {
+                        int result = Integer.compare(o1.worldX, o2.worldY);
+                        return result;
+                    }
+                });
+
+                //Draw entities
+                for (int i = 0; i < entities.size(); i++) {
+                    entities.get(i).draw(g2);
+                }
+                //Empty list
+                for (int i = 0; i < entities.size(); i++) {
+                    entities.remove(i);
+                }
+            }
+                //UI
+                ui.draw(g2);
+            }
 
         //DEBUG
         if (kH.checkDrawTime) {

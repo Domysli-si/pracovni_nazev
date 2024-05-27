@@ -42,8 +42,8 @@ public class Player extends Entity {
     //Movement
     public void setDefaultValues() {
         //Spawn point
-        worldX = gp.tileSize *21;
-        worldY = gp.tileSize *23;
+        worldX = gp.tileSize * 21;
+        worldY = gp.tileSize * 23;
 
         //speed
         speed = 13;
@@ -90,9 +90,13 @@ public class Player extends Entity {
             int objIndex = gp.collisionChecker.checkObject(this, true);
             pickUpObject(objIndex);
 
-            //Check NPc collision
-           int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
-           interactNPC(npcIndex);
+            //Check NPC collision
+            int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
+
+            //Check monster collision
+            int monIndex = gp.collisionChecker.checkEntity(this, gp.mon);
+            contactMonster(monIndex);
 
             //check event
             gp.eventHandler.checkEvent();
@@ -138,12 +142,21 @@ public class Player extends Entity {
     public void interactNPC(int i) {
 
         if (i != 999) {
-            if(gp.kH.enterPressed){
+            if (gp.kH.enterPressed) {
                 gp.gameState = gp.dialogState;
                 gp.npc[i].speak();
             }
         }
-        gp.kH.enterPressed= false;
+        gp.kH.enterPressed = false;
+    }
+
+    public void contactMonster(int i) {
+        if (i != 999) {
+            if (invincible == false) {
+                life -= 1;
+                invincible =true;
+            }
+        }
     }
 
     //draw player's movement

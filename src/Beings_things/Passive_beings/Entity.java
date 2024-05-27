@@ -26,6 +26,8 @@ public class Entity {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
     public int actionLookCounter;
+    public boolean invincible = false;
+    public int invincibleCounter = 0;
     String[] dialogues = new String[20];
     int dialogueIndex = 0;
     public BufferedImage image, image2, image3;
@@ -74,6 +76,8 @@ public class Entity {
         collisionOn = false;
         gp.collisionChecker.checkTile(this);
         gp.collisionChecker.checkObject(this, true);
+        gp.collisionChecker.checkEntity(this, gp.npc);
+        gp.collisionChecker.checkEntity(this, gp.mon);
         gp.collisionChecker.checkPlayer(this);
 
         if (!collisionOn) {

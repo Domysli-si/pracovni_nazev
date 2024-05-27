@@ -26,7 +26,7 @@ public class CollisionChecker {
 
         switch (entity.direction) {
             case "up":
-                entityTopRow = (entityTopWorldY- entity.speed) / gp.tileSize;
+                entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
                 tileNum1 = gp.tileManager.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tileManager.mapTileNum[entityRightCol][entityTopRow];
                 if (gp.tileManager.tile[tileNum1].collision || gp.tileManager.tile[tileNum2].collision) {
@@ -154,32 +154,22 @@ public class CollisionChecker {
                 switch (entity.direction) {
                     case "up":
                         entity.solidArea.y -= entity.speed;
-                        if (entity.solidArea.intersects(target[i].solidArea)) {
-                            entity.collisionOn = true;
-                            index = i;
-                        }
                         break;
                     case "down":
                         entity.solidArea.y += entity.speed;
-                        if (entity.solidArea.intersects(target[i].solidArea)) {
-                            entity.collisionOn = true;
-                            index = i;
-                        }
                         break;
                     case "left":
                         entity.solidArea.x -= entity.speed;
-                        if (entity.solidArea.intersects(target[i].solidArea)) {
-                            entity.collisionOn = true;
-                            index = i;
-                        }
                         break;
                     case "right":
                         entity.solidArea.x += entity.speed;
-                        if (entity.solidArea.intersects(target[i].solidArea)) {
-                            entity.collisionOn = true;
-                            index = i;
-                        }
                         break;
+                }
+                if (entity.solidArea.intersects(target[i].solidArea)) {
+                    if (target[i] != entity) {
+                        entity.collisionOn = true;
+                        index = i;
+                    }
                 }
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
@@ -190,7 +180,8 @@ public class CollisionChecker {
         }
         return index;
     }
-    public void checkPlayer(Entity entity){
+
+    public void checkPlayer(Entity entity) {
         //Get entity's solid area position
         entity.solidArea.x = entity.worldX + entity.solidArea.x;
         entity.solidArea.y = entity.worldY + entity.solidArea.y;

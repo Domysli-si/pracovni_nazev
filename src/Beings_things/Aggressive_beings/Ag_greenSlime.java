@@ -28,15 +28,14 @@ public class Ag_greenSlime extends Entity {
 
     //Slime's images
     public void getImage() throws IOException {
-
-        up1 = setup("/greenslime_down_1.png");
-        up2 = setup("/greenslime_down_2.png");
-        down1 = setup("/greenslime_down_1.png");
-        down2 = setup("/greenslime_down_2.png");
-        left1 = setup("/greenslime_down_1.png");
-        left2 = setup("/greenslime_down_2.png");
-        right1 = setup("/greenslime_down_1.png");
-        right2 = setup("/greenslime_down_2.png");
+        up1 = setup("/monster/greenslime_1");
+        up2 = setup("/monster/greenslime_2");
+        down1 = setup("/monster/greenslime_1");
+        down2 = setup("/monster/greenslime_2");
+        left1 = setup("/monster/greenslime_1");
+        left2 = setup("/monster/greenslime_2");
+        right1 = setup("/monster/greenslime_1");
+        right2 = setup("/monster/greenslime_2");
     }
 
     //Set behavior of green slime

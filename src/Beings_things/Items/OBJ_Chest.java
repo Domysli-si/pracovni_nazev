@@ -12,6 +12,6 @@ public class OBJ_Chest extends Entity {
         super(gp);
 
         name = "Boots";
-        down1 = setup("/objects/key");
+        down1 = setup("/objects/key", gp.tileSize, gp.tileSize);
     }
 }

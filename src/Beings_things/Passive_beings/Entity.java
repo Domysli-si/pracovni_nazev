@@ -4,40 +4,44 @@ import MainSystem.GamePanel;
 import MainSystem.UtilityTool;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Entity {
+
     GamePanel gp;
-    public int worldX, worldY;
-    public int speed;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    public String direction = "down";
-    public int spriteCounter = 0;
-    public int spriteNumber = 1;
-
-    //default solidArea for every entity
-    public Rectangle solidArea = new Rectangle(0, 0, 40, 40);
-
-    //for interacting with items
-    public int solidAreaDefaultX, solidAreaDefaultY;
-    public boolean collisionOn = false;
-    public int actionLookCounter;
-    public boolean invincible = false;
-    public int invincibleCounter = 0;
-    String[] dialogues = new String[20];
-    int dialogueIndex = 0;
+    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
     public BufferedImage image, image2, image3;
-    public String name;
+    public Rectangle solidArea = new Rectangle(0, 0, 40, 40);
+    public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
+    public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collision = false;
-    public int type;//0 = player, 1 = npc, 2 = monster
+    String[] dialogues = new String[20];
+
+
+    //State
+    public int worldX, worldY;
+    public String direction = "down";
+    public int spriteNumber = 1;
+    int dialogueIndex = 0;
+    public boolean collisionOn = false;
+    public boolean invincible = false;
+    public boolean attacking = false;
+
+
+    //Counter
+    public int spriteCounter = 0;
+    public int invincibleCounter = 0;
+    public int actionLockCounter = 0;
 
     //Character stats
+    public String name;
     public int maxLife;
     public int life;
+    public int speed;
+    public int type;//0 = player, 1 = npc, 2 = monster
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -72,7 +76,7 @@ public class Entity {
         }
     }
 
-    public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void update()  {
         setAction();
         collisionOn = false;
         gp.collisionChecker.checkTile(this);
@@ -81,8 +85,8 @@ public class Entity {
         gp.collisionChecker.checkEntity(this, gp.mon);
         boolean contactPlayer = gp.collisionChecker.checkPlayer(this);
 
-        if (this.type == 2 && contactPlayer == true) {
-            if (gp.player.invincible == false) {
+        if (this.type == 2 && contactPlayer) {
+            if (!gp.player.invincible) {
                 gp.player.life -= 1;
                 gp.player.invincible = true;
             }
@@ -111,6 +115,14 @@ public class Entity {
                 spriteNumber = 1;
             }
             spriteCounter = 0;
+        }
+        if (invincible) {
+            invincibleCounter++;
+            if (invincibleCounter > 40) {
+                invincible = false;
+                invincibleCounter = 0;
+
+            }
         }
     }
 
@@ -156,17 +168,21 @@ public class Entity {
                     }
                     break;
             }
+            if (invincible) {
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+            }
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
     }
 
 
     //Method for finding images
-    public BufferedImage setup(String imagePath) throws IOException {
+    public BufferedImage setup(String imagePath, int width, int height) throws IOException {
         UtilityTool utilityTool = new UtilityTool();
         BufferedImage image = null;
         image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
-        image = utilityTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        image = utilityTool.scaleImage(image, width, height);
         return image;
     }
 

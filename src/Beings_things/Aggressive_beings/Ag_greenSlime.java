@@ -7,10 +7,12 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Ag_greenSlime extends Entity {
+    GamePanel gp;
+
     public Ag_greenSlime(GamePanel gp) throws IOException {
         super(gp);
 
-
+        this.gp = gp;
         type = 2;
         //Stats
         name = " Green slime";
@@ -19,9 +21,9 @@ public class Ag_greenSlime extends Entity {
         life = maxLife;
 
         solidArea.x = 3;
-        solidArea.y =18;
-        solidArea.width =42;
-        solidArea.height =30;
+        solidArea.y = 18;
+        solidArea.width = 42;
+        solidArea.height = 30;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
@@ -30,20 +32,20 @@ public class Ag_greenSlime extends Entity {
 
     //Slime's images
     public void getImage() throws IOException {
-        up1 = setup("/monster/greenslime_1");
-        up2 = setup("/monster/greenslime_2");
-        down1 = setup("/monster/greenslime_1");
-        down2 = setup("/monster/greenslime_2");
-        left1 = setup("/monster/greenslime_1");
-        left2 = setup("/monster/greenslime_2");
-        right1 = setup("/monster/greenslime_1");
-        right2 = setup("/monster/greenslime_2");
+        up1 = setup("/monster/greenslime_1", gp.tileSize, gp.tileSize);
+        up2 = setup("/monster/greenslime_2", gp.tileSize, gp.tileSize);
+        down1 = setup("/monster/greenslime_1", gp.tileSize, gp.tileSize);
+        down2 = setup("/monster/greenslime_2", gp.tileSize, gp.tileSize);
+        left1 = setup("/monster/greenslime_1", gp.tileSize, gp.tileSize);
+        left2 = setup("/monster/greenslime_2", gp.tileSize, gp.tileSize);
+        right1 = setup("/monster/greenslime_1", gp.tileSize, gp.tileSize);
+        right2 = setup("/monster/greenslime_2", gp.tileSize, gp.tileSize);
     }
 
     //Set behavior of green slime
-    public void setAction(){
-        actionLookCounter++;
-        if (actionLookCounter == 120) {
+    public void setAction() {
+        actionLockCounter++;
+        if (actionLockCounter == 120) {
             Random random = new Random();
             int i = random.nextInt(100) + 1;
             if (i <= 25) {
@@ -58,7 +60,7 @@ public class Ag_greenSlime extends Entity {
             if (i > 75) {
                 direction = "right";
             }
-            actionLookCounter = 0;
+            actionLockCounter = 0;
         }
     }
 }

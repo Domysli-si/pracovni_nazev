@@ -33,6 +33,7 @@ public class Entity {
     public BufferedImage image, image2, image3;
     public String name;
     public boolean collision = false;
+    public int type;//0 = player, 1 = npc, 2 = monster
 
     //Character stats
     public int maxLife;
@@ -71,15 +72,21 @@ public class Entity {
         }
     }
 
-    public  void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         setAction();
         collisionOn = false;
         gp.collisionChecker.checkTile(this);
         gp.collisionChecker.checkObject(this, true);
         gp.collisionChecker.checkEntity(this, gp.npc);
         gp.collisionChecker.checkEntity(this, gp.mon);
-        gp.collisionChecker.checkPlayer(this);
+        boolean contactPlayer = gp.collisionChecker.checkPlayer(this);
 
+        if (this.type == 2 && contactPlayer == true) {
+            if (gp.player.invincible == false) {
+                gp.player.life -= 1;
+                gp.player.invincible = true;
+            }
+        }
         if (!collisionOn) {
             switch (direction) {
                 case "up":
@@ -123,7 +130,6 @@ public class Entity {
                     if (spriteNumber == 2) {
                         image = up2;
                     }
-
                     break;
                 case "down":
                     if (spriteNumber == 1) {
@@ -154,6 +160,8 @@ public class Entity {
         }
     }
 
+
+    //Method for finding images
     public BufferedImage setup(String imagePath) throws IOException {
         UtilityTool utilityTool = new UtilityTool();
         BufferedImage image = null;

@@ -10,6 +10,8 @@ public class Ag_greenSlime extends Entity {
     public Ag_greenSlime(GamePanel gp) throws IOException {
         super(gp);
 
+
+        type = 2;
         //Stats
         name = " Green slime";
         speed = 1;

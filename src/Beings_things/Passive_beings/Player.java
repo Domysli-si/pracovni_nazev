@@ -127,6 +127,21 @@ public class Player extends Entity {
                 }
                 spriteCounter = 0;
             }
+        } else {
+            standCounter++;
+            if (standCounter == 20) {
+                spriteNumber = 1;
+                standCounter = 0;
+            }
+        }
+
+        if (invincible) {
+            invincibleCounter++;
+            if (invincibleCounter > 60) {
+                invincible = false;
+                invincibleCounter = 0;
+
+            }
         }
     }
 
@@ -152,9 +167,9 @@ public class Player extends Entity {
 
     public void contactMonster(int i) {
         if (i != 999) {
-            if (invincible == false) {
+            if (!invincible) {
                 life -= 1;
-                invincible =true;
+                invincible = true;
             }
         }
     }
@@ -215,6 +230,19 @@ public class Player extends Entity {
         }
 
 
+        if(invincible){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
         g2.drawImage(image, screenX, screenY, null);
+
+        //reset alpha
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+
+       /* //DEBUGGING for invincibleCounter
+        g2.setFont(new Font("Arial", Font.PLAIN, 26));
+        g2.setColor(Color.white);
+        g2.drawString("invincible: " + invincibleCounter, 10, 400);
+    */
     }
 }

@@ -1,5 +1,7 @@
 package Beings_things.Passive_beings;
 
+import Beings_things.Items.Tools.OBJ_Shield;
+import Beings_things.Items.Tools.OBJ_Weapon;
 import MainSystem.GamePanel;
 import MainSystem.KeyHandler;
 
@@ -45,19 +47,34 @@ public class Player extends Entity {
         getPlayerAttackImage();
     }
 
-    //Movement
-    public void setDefaultValues() {
+
+    public void setDefaultValues() throws IOException {
         //Spawn point
         worldX = gp.tileSize * 21;
         worldY = gp.tileSize * 23;
-
-        //speed
-        speed = 13;
         direction = "down";
 
-        //life stats
+        //STATS
+        speed = 13;
         maxLife = 12;
         life = maxLife;
+        level = 1;
+        exp = 0;
+        nextLevelExp = 5;
+        coin = 0;
+        strength = 1;
+        dexterity = 1;
+        currentWeapon = new OBJ_Weapon(gp);
+        currentShield = new OBJ_Shield(gp);
+        attack = getAttack();
+        defense = getDefense();
+    }
+
+    public int getAttack() {
+        return attack = strength * currentWeapon.attackValue;
+    }
+    public int getDefense() {
+        return defense = dexterity * currentShield.defenseValue;
     }
 
     //Loading player images

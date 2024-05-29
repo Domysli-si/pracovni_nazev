@@ -43,19 +43,37 @@ public class Entity {
     int hpBarCounter = 0;
 
     //Character stats
+    public int type;//0 = player, 1 = npc, 2 = monster
     public String name;
+    public int speed;
     public int maxLife;
     public int life;
-    public int speed;
-    public int type;//0 = player, 1 = npc, 2 = monster
+    public int level;
+    public int strength;
+    public int dexterity;
+    public int attack;
+    public int defense;
+    public int exp;
+    public int nextLevelExp;
+    public int coin;
+    public Entity currentWeapon;
+    public Entity currentShield;
+
+    //Item attributes
+    public int attackValue;
+    public int defenseValue;
+
+
 
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
 
-    public void setAction() {}
+    public void setAction() {
+    }
 
-    public void damageReaction(){}
+    public void damageReaction() {
+    }
 
     //Face to face
     public void speak() {
@@ -258,4 +276,3 @@ public class Entity {
     }
 
 }
-

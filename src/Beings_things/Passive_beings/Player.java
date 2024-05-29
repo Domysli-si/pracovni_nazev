@@ -84,7 +84,7 @@ public class Player extends Entity {
     }
 
 
-    public void update() {
+    public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 
         if (attacking) {
             attacking();
@@ -167,7 +167,7 @@ public class Player extends Entity {
     }
 
     //Setting length of attacking animation
-    public void attacking() {
+    public void attacking() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         spriteCounter++;
         if (spriteCounter <= 5) {
             spriteNumber = 1;
@@ -233,6 +233,7 @@ public class Player extends Entity {
                 gp.gameState = gp.dialogState;
                 gp.npc[i].speak();
             } else {
+                //gp.playSE(7);
                 attacking = true;
             }
         }
@@ -240,23 +241,25 @@ public class Player extends Entity {
         gp.kH.enterPressed = false;
     }
 
-    public void contactMonster(int i) {
+    public void contactMonster(int i) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if (i != 999) {
             if (!invincible) {
+                gp.playSE(6);
                 life -= 1;
                 invincible = true;
             }
         }
     }
 
-    public void damageMon(int i) {
+    public void damageMon(int i) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if (i != 999) {
             if (!gp.mon[i].invincible) {
+                gp.playSE(5);
                 gp.mon[i].life -= 1;
                 gp.mon[i].invincible = true;
-
-                if (gp.mon[i].life <= 0 ) {
-                    gp.mon[i] = null;
+                gp.mon[i].damageReaction();
+                if (gp.mon[i].life <= 0) {
+                    gp.mon[i].dying = true;
                 }
 
             }

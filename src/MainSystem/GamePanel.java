@@ -136,7 +136,12 @@ public class GamePanel extends JPanel implements Runnable {
             //Monster
             for (int i = 0; i < mon.length; i++) {
                 if (mon[i] != null) {
-                    mon[i].update();
+                    if (mon[i].alive && !mon[i].dying) {
+                        mon[i].update();
+                    }
+                    if (!mon[i].alive) {
+                        mon[i] = null;
+                    }
                 }
             }
         }
@@ -196,11 +201,11 @@ public class GamePanel extends JPanel implements Runnable {
                     entities.get(i).draw(g2);
                 }
                 //Empty list
-               entities.clear();
+                entities.clear();
             }
-                //UI
-                ui.draw(g2);
-            }
+            //UI
+            ui.draw(g2);
+        }
 
         //DEBUG
         if (kH.checkDrawTime) {

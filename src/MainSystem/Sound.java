@@ -10,12 +10,17 @@ public class Sound {
     Clip clip;
     URL[] soundURL = new URL[30];
 
-    public Sound(){
-        soundURL[0]= getClass().getResource("/sound/BlueBoyAdventure.wav");
-        soundURL[1]= getClass().getResource("/sound/coin.wav");
-        soundURL[2]= getClass().getResource("/sound/powerup.wav");
-        soundURL[3]= getClass().getResource("/sound/unlock.wav");
-        soundURL[4]= getClass().getResource("/sound/fanfare.wav");
+    public Sound() {
+        soundURL[0] = getClass().getResource("/sound/BlueBoyAdventure.wav");
+        soundURL[1] = getClass().getResource("/sound/coin.wav");
+        soundURL[2] = getClass().getResource("/sound/powerup.wav");
+        soundURL[3] = getClass().getResource("/sound/unlock.wav");
+        soundURL[4] = getClass().getResource("/sound/fanfare.wav");
+        soundURL[5] = getClass().getResource("/sound/hitmonster.wav");
+        soundURL[6] = getClass().getResource("/sound/receivedamage.wav");
+        //soundURL[7] = getClass().getResource("/sound/fanfare.wav");
+
+
     }
 
     public void setFile(int i) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
@@ -23,14 +28,17 @@ public class Sound {
         clip = AudioSystem.getClip();
         clip.open(ais);
     }
-    public void play(){
+
+    public void play() {
 
         clip.start();
     }
-    public void loop(){
+
+    public void loop() {
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
-    public void stop(){
+
+    public void stop() {
         clip.stop();
     }
 

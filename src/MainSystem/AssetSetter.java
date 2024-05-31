@@ -27,12 +27,23 @@ public class AssetSetter {
     }
 
     public void setMonster() throws IOException {
-        gp.mon[0] = new Ag_greenSlime(gp);
-        gp.mon[0].worldX = gp.tileSize * 22;
-        gp.mon[0].worldY = gp.tileSize * 22;
+        int i = 0;
+        gp.mon[i] = new Ag_greenSlime(gp);
+        gp.mon[i].worldX = gp.tileSize * 22;
+        gp.mon[i].worldY = gp.tileSize * 22;
+        i++;
+        gp.mon[i] = new Ag_greenSlime(gp);
+        gp.mon[i].worldX = gp.tileSize * 23;
+        gp.mon[i].worldY = gp.tileSize * 23;
+        i++;
+        gp.mon[i] = new Ag_greenSlime(gp);
+        gp.mon[i].worldX = gp.tileSize * 24;
+        gp.mon[i].worldY = gp.tileSize * 24;
+        i++;
+        gp.mon[i] = new Ag_greenSlime(gp);
+        gp.mon[i].worldX = gp.tileSize * 25;
+        gp.mon[i].worldY = gp.tileSize * 25;
+        i++;
 
-        gp.mon[1] = new Ag_greenSlime(gp);
-        gp.mon[1].worldX = gp.tileSize * 23;
-        gp.mon[1].worldY = gp.tileSize * 23;
     }
 }

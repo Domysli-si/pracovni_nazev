@@ -73,6 +73,7 @@ public class Player extends Entity {
     public int getAttack() {
         return attack = strength * currentWeapon.attackValue;
     }
+
     public int getDefense() {
         return defense = dexterity * currentShield.defenseValue;
     }
@@ -99,7 +100,6 @@ public class Player extends Entity {
         attackRight1 = setup("/player/attack/boy_attack_right_1", gp.tileSize * 2, gp.tileSize);
         attackRight2 = setup("/player/attack/boy_attack_right_2", gp.tileSize * 2, gp.tileSize);
     }
-
 
     public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 
@@ -233,7 +233,6 @@ public class Player extends Entity {
 
     }
 
-
     //Choosing what happens with item if player touches it.
     public void pickUpObject(int i) {
 
@@ -261,8 +260,11 @@ public class Player extends Entity {
     public void contactMonster(int i) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if (i != 999) {
             if (!invincible) {
-                gp.playSE(6);
-                life -= 1;
+                int damage = gp.mon[i].attack - defense;
+                if (damage < 0) {
+                    damage = 0;
+                }
+                life -= damage;
                 invincible = true;
             }
         }
@@ -271,15 +273,42 @@ public class Player extends Entity {
     public void damageMon(int i) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if (i != 999) {
             if (!gp.mon[i].invincible) {
+                int damage = attack - gp.mon[i].defense;
+                if (damage < 0) {
+                    damage = 0;
+
+                }
                 gp.playSE(5);
-                gp.mon[i].life -= 1;
+                gp.mon[i].life -= damage;
+                gp.ui.addMessage(damage + "damage!");
                 gp.mon[i].invincible = true;
                 gp.mon[i].damageReaction();
                 if (gp.mon[i].life <= 0) {
                     gp.mon[i].dying = true;
+                    gp.ui.addMessage("Killed the " + gp.mon[i].name + "!");
+                    gp.ui.addMessage("Exp + " + gp.mon[i].exp + "!");
+                    exp += gp.mon[i].exp;
+                    checkLevelUp();
                 }
 
             }
+        }
+    }
+
+    public void checkLevelUp() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+
+        if (exp >= nextLevelExp) {
+            level++;
+            nextLevelExp = nextLevelExp * 2;
+            maxLife += 2;
+            strength++;
+            dexterity++;
+            attack = getAttack();
+            defense = getDefense();
+
+            gp.playSE(7);
+            gp.gameState = gp.dialogState;
+            gp.ui.currentDialog = "You are level " + level + " now!\n"+ "You feel stronger!";
         }
     }
 

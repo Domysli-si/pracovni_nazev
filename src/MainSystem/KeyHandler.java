@@ -1,7 +1,10 @@
 package MainSystem;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 
 public class KeyHandler implements KeyListener {
@@ -13,7 +16,8 @@ public class KeyHandler implements KeyListener {
     boolean checkDrawTime = false;
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+    }
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -41,7 +45,11 @@ public class KeyHandler implements KeyListener {
         }
         //Screen state
         else if (gp.gameState == gp.statsScreenState) {
-            screenStatsState(code);
+            try {
+                screenStatsState(code);
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
@@ -147,10 +155,35 @@ public class KeyHandler implements KeyListener {
         }
     }
 
-    public void screenStatsState(int code) {
+    public void screenStatsState(int code) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if (code == KeyEvent.VK_C) {
             gp.gameState = gp.playState;
         }
+        if (code == KeyEvent.VK_W) {
+            if(gp.ui.slotRow != 0){
+                gp.ui.slotRow--;
+                gp.playSE(8);
+            }
+        }
+        if (code == KeyEvent.VK_A) {
+            if(gp.ui.slotCol != 0){
+                gp.ui.slotCol--;
+                gp.playSE(8);
+            }
+        }
+        if (code == KeyEvent.VK_S) {
+            if(gp.ui.slotRow != 3){
+                gp.ui.slotRow++;
+                gp.playSE(8);
+            }
+        }
+        if (code == KeyEvent.VK_D) {
+            if(gp.ui.slotCol != 4){
+                gp.ui.slotCol++;
+                gp.playSE(8);
+            }
+        }
+
     }
 
     @Override

@@ -1,7 +1,8 @@
 package Beings_things.Passive_beings;
 
+import Beings_things.Items.OBJ_Key;
 import Beings_things.Items.Tools.OBJ_Shield;
-import Beings_things.Items.Tools.OBJ_Weapon;
+import Beings_things.Items.Tools.OBJ_Sword;
 import MainSystem.GamePanel;
 import MainSystem.KeyHandler;
 
@@ -10,6 +11,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class Player extends Entity {
@@ -19,6 +21,8 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     int standCounter = 0;
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int amxInventorySize = 20;
 
 
     public Player(GamePanel gp, KeyHandler kH) throws IOException {
@@ -45,8 +49,8 @@ public class Player extends Entity {
         setDefaultValues();
         getPlayerImage();
         getPlayerAttackImage();
+        setItems();
     }
-
 
     public void setDefaultValues() throws IOException {
         //Spawn point
@@ -64,10 +68,17 @@ public class Player extends Entity {
         coin = 0;
         strength = 1;
         dexterity = 1;
-        currentWeapon = new OBJ_Weapon(gp);
+        currentWeapon = new OBJ_Sword(gp);
         currentShield = new OBJ_Shield(gp);
         attack = getAttack();
         defense = getDefense();
+    }
+
+    public void setItems() throws IOException {
+        inventory.add(currentWeapon);
+        inventory.add(currentShield);
+        inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Key(gp));
     }
 
     public int getAttack() {

@@ -1,7 +1,7 @@
 package MainSystem.Tile;
 
 import MainSystem.GamePanel;
-import MainSystem.UtilityTool;
+import MainSystem.UserInterface.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

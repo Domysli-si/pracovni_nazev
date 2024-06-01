@@ -1,19 +1,18 @@
-package Beings_things.Items;
-
+package Beings_things.zItems;
 
 import Beings_things.Passive_beings.Entity;
 import MainSystem.GamePanel;
-
 import java.io.IOException;
 
-public class OBJ_Boots extends Entity {
+public class OBJ_Key extends Entity {
 
 
-    public OBJ_Boots(GamePanel gp) throws IOException {
+    public OBJ_Key(GamePanel gp)throws IOException {
         super(gp);
 
         name = "Boots";
         down1 = setup("/objects/key", gp.tileSize, gp.tileSize);
-
+        description = "[ " + name + " ]\n It opens a door.";
     }
+
 }

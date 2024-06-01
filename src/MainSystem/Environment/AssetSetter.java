@@ -1,9 +1,9 @@
-package MainSystem;
+package MainSystem.Environment;
 
 
 import Beings_things.Aggressive_beings.Ag_greenSlime;
-import Beings_things.Items.OBJ_Door;
 import Beings_things.Passive_beings.NPC_OldMan;
+import MainSystem.GamePanel;
 
 import java.io.IOException;
 
@@ -17,7 +17,6 @@ public class AssetSetter {
 
     public void setObject() throws IOException {
         //nothing
-
     }
 
     public void setNPC() throws IOException {
@@ -41,8 +40,8 @@ public class AssetSetter {
         gp.mon[i].worldY = gp.tileSize * 24;
         i++;
         gp.mon[i] = new Ag_greenSlime(gp);
-        gp.mon[i].worldX = gp.tileSize * 25;
-        gp.mon[i].worldY = gp.tileSize * 25;
+        gp.mon[i].worldX = gp.tileSize * 21;
+        gp.mon[i].worldY = gp.tileSize * 21;
         i++;
 
     }

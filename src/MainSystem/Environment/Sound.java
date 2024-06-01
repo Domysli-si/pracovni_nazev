@@ -1,4 +1,4 @@
-package MainSystem;
+package MainSystem.Environment;
 
 import javax.sound.sampled.*;
 import java.io.IOException;

@@ -2,7 +2,12 @@ package MainSystem;
 
 import Beings_things.Passive_beings.Entity;
 import Beings_things.Passive_beings.Player;
+import MainSystem.Environment.AssetSetter;
+import MainSystem.Environment.CollisionChecker;
+import MainSystem.Environment.EventHandler;
+import MainSystem.Environment.Sound;
 import MainSystem.Tile.TileManager;
+import MainSystem.UserInterface.UI;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -21,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tileSize = originalTileSize * scale; // 48 x 48 tile
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
-    public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    public int screenWidth = tileSize * maxScreenCol; // 768 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     //World Map parameters.
@@ -34,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
 
     //System
-    TileManager tileManager = new TileManager(this);
+    public TileManager tileManager = new TileManager(this);
     public KeyHandler kH = new KeyHandler(this);
     Sound se = new Sound();
     Sound music = new Sound();
@@ -48,7 +53,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Entity[] obj = new Entity[10];
     public Entity[] npc = new Entity[10];
     public Entity[] mon = new Entity[20];
-    ArrayList<Entity> entities = new ArrayList<>();
+    public ArrayList<Entity> entities = new ArrayList<>();
 
     //Game states
     public int gameState;
@@ -76,7 +81,6 @@ public class GamePanel extends JPanel implements Runnable {
         playMusic(0);
         gameState = titleState;
     }
-
 
     public void startGameThread() {
         gameThread = new Thread(this);

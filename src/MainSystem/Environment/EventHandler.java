@@ -1,4 +1,6 @@
-package MainSystem;
+package MainSystem.Environment;
+
+import MainSystem.GamePanel;
 
 import java.awt.*;
 
@@ -44,14 +46,13 @@ public class EventHandler {
         eventRectangle.y = eventRecDefaultY;
         return hit;
     }
-    public void damagePit(int gameState){
+
+    public void damagePit(int gameState) {
         gp.gameState = gameState;
         gp.ui.currentDialog = "You fall into a pit!";
         gp.player.life -= 1;
 
     }
 
-    /*public void healingEvent(){
 
-    }*/
 }

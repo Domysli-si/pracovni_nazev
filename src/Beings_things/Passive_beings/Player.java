@@ -1,8 +1,8 @@
 package Beings_things.Passive_beings;
 
-import Beings_things.Items.OBJ_Key;
-import Beings_things.Items.Tools.OBJ_Shield;
-import Beings_things.Items.Tools.OBJ_Sword;
+import Beings_things.zItems.OBJ_Key;
+import Beings_things.zItems.Tools.OBJ_Shield;
+import Beings_things.zItems.Tools.OBJ_Sword;
 import MainSystem.GamePanel;
 import MainSystem.KeyHandler;
 
@@ -22,7 +22,7 @@ public class Player extends Entity {
     public final int screenY;
     int standCounter = 0;
     public ArrayList<Entity> inventory = new ArrayList<>();
-    public final int amxInventorySize = 20;
+
 
 
     public Player(GamePanel gp, KeyHandler kH) throws IOException {
@@ -44,7 +44,6 @@ public class Player extends Entity {
         //size of weapon's hit box
         attackArea.width = 36;
         attackArea.height = 36;
-
 
         setDefaultValues();
         getPlayerImage();
@@ -268,7 +267,7 @@ public class Player extends Entity {
         gp.kH.enterPressed = false;
     }
 
-    public void contactMonster(int i) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void contactMonster(int i)  {
         if (i != 999) {
             if (!invincible) {
                 int damage = gp.mon[i].attack - defense;

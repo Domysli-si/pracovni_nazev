@@ -1,4 +1,4 @@
-package MainSystem;
+package MainSystem.UserInterface;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

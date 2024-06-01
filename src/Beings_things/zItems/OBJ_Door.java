@@ -1,4 +1,4 @@
-package Beings_things.Items;
+package Beings_things.zItems;
 
 import Beings_things.Passive_beings.Entity;
 import MainSystem.GamePanel;

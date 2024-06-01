@@ -1,7 +1,8 @@
-package MainSystem;
+package MainSystem.UserInterface;
 
 import Beings_things.Passive_beings.Entity;
 import Beings_things.Stats.OBJ_Heart;
+import MainSystem.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,8 +16,6 @@ public class UI {
 
     Font arial_40, arial_80B;
     BufferedImage heart_full, heart_half, heart_blank;
-    //public boolean messageOn = false;
-    //public String message = "";
     ArrayList<String> message = new ArrayList<>();
     ArrayList<Integer> messageCounter = new ArrayList<>();
     public String currentDialog = "";
@@ -186,10 +185,11 @@ public class UI {
             }
 
 
-        } /*else if (titleScreenState == 1) {
+        } else if (titleScreenState == 1) {
             //Class selection screen
             g2.setColor(Color.white);
             g2.setFont(g2.getFont().deriveFont(42F));
+
             String text = "Select your class: ";
             int x = getXforCenteredText(text);
             int y = gp.tileSize * 3;
@@ -227,7 +227,7 @@ public class UI {
                 g2.drawString(">", x - gp.tileSize, y);
             }
 
-        }*/
+        }
 
     }
 
@@ -236,7 +236,7 @@ public class UI {
         String text = "Paused!";
         int x = getXforCenteredText(text);
         int y = gp.screenHeight / 2;
-
+        gp.stopMusic();
         g2.drawString(text, x, y);
     }
 

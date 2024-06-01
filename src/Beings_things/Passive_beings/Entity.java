@@ -1,7 +1,7 @@
 package Beings_things.Passive_beings;
 
 import MainSystem.GamePanel;
-import MainSystem.UtilityTool;
+import MainSystem.UserInterface.UtilityTool;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;

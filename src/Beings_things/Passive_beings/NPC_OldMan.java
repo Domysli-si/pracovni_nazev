@@ -26,15 +26,13 @@ public class NPC_OldMan extends Entity {
     }
 
     public void setDialogue() {
-        dialogues[0] = "d1";
-        dialogues[1] = "d2";
-        dialogues[2] = "d3";
-        dialogues[3] = "d4";
+        dialogues[0] = "Zdravím vašnosta, těší mě.";
+        dialogues[1] = "Jistě si říkáš kde to jsi, že?";
+        dialogues[2] = "Vítám tě v (Název bude vymyšlen)";
     }
 
-
     //Setting movement for NPC
-   public void setAction() {
+    public void setAction() {
         actionLockCounter++;
         if (actionLockCounter == 120) {
             Random random = new Random();
@@ -57,6 +55,6 @@ public class NPC_OldMan extends Entity {
 
     //For specification.
     public void speak() {
-    super.speak();
+        super.speak();
     }
 }

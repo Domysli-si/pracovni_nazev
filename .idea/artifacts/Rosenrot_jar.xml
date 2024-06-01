@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Pracovni Nazev:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Rosenrot_jar</output-path>
+    <root id="archive" name="Projekt_Majer2.jar">
+      <element id="module-output" name="Pracovni Nazev" />
+    </root>
+  </artifact>
+</component>

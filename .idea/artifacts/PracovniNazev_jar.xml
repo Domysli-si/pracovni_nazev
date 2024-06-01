@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PracovniNazev:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Projekt_Majer2_jar</output-path>
+    <root id="archive" name="PracovniNazev.jar">
+      <element id="module-output" name="PracovniNazev" />
+    </root>
+  </artifact>
+</component>

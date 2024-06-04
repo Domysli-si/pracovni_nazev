@@ -41,7 +41,7 @@ public class AssetSetter {
         i++;
         gp.mon[i] = new Ag_greenSlime(gp);
         gp.mon[i].worldX = gp.tileSize * 21;
-        gp.mon[i].worldY = gp.tileSize * 21;
+        gp.mon[i].worldY = gp.tileSize * 20;
         i++;
 
     }

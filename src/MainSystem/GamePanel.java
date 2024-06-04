@@ -161,7 +161,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         //Debug
         long drawStart = 0;
-        if (kH.checkDrawTime) {
+        if (kH.showDebugText) {
             drawStart = System.nanoTime();
         }
 
@@ -214,15 +214,30 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         //DEBUG
-        if (kH.checkDrawTime) {
+        if (kH.showDebugText) {
             long drawEnd = System.nanoTime();
             long passed = drawEnd - drawStart;
+            g2.setFont(new Font("Arial", Font.PLAIN, 20));
             g2.setColor(Color.white);
+            int x = 10;
+            int y = 400;
+            int lineHeight = 20;
+            y += lineHeight;
+            g2.drawString("X: " + player.worldX, x, y);
+            y += lineHeight;
+            g2.drawString("Y: " + player.worldY, x, y);
+            y += lineHeight;
+            g2.drawString("Col: " + (player.worldX + player.solidArea.x) / tileSize, x, y);
+            y += lineHeight;
+            g2.drawString("Row: " + (player.worldY + player.solidArea.y) / tileSize, x, y);
+            y += lineHeight;
+
             g2.drawString("Draw Time" + passed, 10, 400);
             System.out.println("Draw Time:" + passed);
         }
         g2.dispose();
     }
+
 
     //Constantly play sound()
     public void playMusic(int i) throws UnsupportedAudioFileException, LineUnavailableException, IOException {

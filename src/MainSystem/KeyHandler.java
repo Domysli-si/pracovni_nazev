@@ -13,7 +13,7 @@ public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
     //DEBUG
-    boolean checkDrawTime = false;
+    boolean showDebugText = false;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -33,7 +33,11 @@ public class KeyHandler implements KeyListener {
         }
         //Play state
         else if (gp.gameState == gp.playState) {
-            playState(code);
+            try {
+                playState(code);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         //Pause state
         else if (gp.gameState == gp.pauseState) {
@@ -115,7 +119,7 @@ public class KeyHandler implements KeyListener {
         }
     }
 
-    public void playState(int code) {
+    public void playState(int code) throws IOException {
         if (code == KeyEvent.VK_W) {
             upPressed = true;
         }
@@ -137,9 +141,14 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_ENTER) {
             enterPressed = true;
         }
+
         //DEBUG
         if (code == KeyEvent.VK_T) {
-            checkDrawTime = !checkDrawTime;
+            showDebugText = !showDebugText;
+        }
+        if (code == KeyEvent.VK_O) {
+            gp.tileManager.loadMap("/maps/world01.txt");
+
         }
     }
 
@@ -160,25 +169,25 @@ public class KeyHandler implements KeyListener {
             gp.gameState = gp.playState;
         }
         if (code == KeyEvent.VK_W) {
-            if(gp.ui.slotRow != 0){
+            if (gp.ui.slotRow != 0) {
                 gp.ui.slotRow--;
                 gp.playSE(8);
             }
         }
         if (code == KeyEvent.VK_A) {
-            if(gp.ui.slotCol != 0){
+            if (gp.ui.slotCol != 0) {
                 gp.ui.slotCol--;
                 gp.playSE(8);
             }
         }
         if (code == KeyEvent.VK_S) {
-            if(gp.ui.slotRow != 3){
+            if (gp.ui.slotRow != 3) {
                 gp.ui.slotRow++;
                 gp.playSE(8);
             }
         }
         if (code == KeyEvent.VK_D) {
-            if(gp.ui.slotCol != 4){
+            if (gp.ui.slotCol != 4) {
                 gp.ui.slotCol++;
                 gp.playSE(8);
             }

@@ -1,4 +1,4 @@
-package Beings_things.Passive_beings;
+package BeingsThings.BeingsPassive;
 
 import MainSystem.GamePanel;
 import MainSystem.UserInterface.UtilityTool;

@@ -1,8 +1,8 @@
 package MainSystem.Environment;
 
 
-import Beings_things.Aggressive_beings.Ag_greenSlime;
-import Beings_things.Passive_beings.NPC_OldMan;
+import BeingsThings.BeingsAggressive.Ag_greenSlime;
+import BeingsThings.BeingsPassive.NPC_OldMan;
 import MainSystem.GamePanel;
 
 import java.io.IOException;

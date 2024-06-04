@@ -1,6 +1,6 @@
-package Beings_things.zItems.Tools;
+package BeingsThings.Items.Tools;
 
-import Beings_things.Passive_beings.Entity;
+import BeingsThings.BeingsPassive.Entity;
 import MainSystem.GamePanel;
 
 import java.io.IOException;

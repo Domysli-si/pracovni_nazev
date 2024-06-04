@@ -1,8 +1,8 @@
-package Beings_things.Passive_beings;
+package BeingsThings.BeingsPassive;
 
-import Beings_things.zItems.OBJ_Key;
-import Beings_things.zItems.Tools.OBJ_Shield;
-import Beings_things.zItems.Tools.OBJ_Sword;
+import BeingsThings.Items.OBJ_Key;
+import BeingsThings.Items.Tools.OBJ_Shield;
+import BeingsThings.Items.Tools.OBJ_Sword;
 import MainSystem.GamePanel;
 import MainSystem.KeyHandler;
 

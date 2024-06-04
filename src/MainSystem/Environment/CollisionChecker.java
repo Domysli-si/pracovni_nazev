@@ -1,6 +1,6 @@
 package MainSystem.Environment;
 
-import Beings_things.Passive_beings.Entity;
+import BeingsThings.BeingsPassive.Entity;
 import MainSystem.GamePanel;
 
 public class CollisionChecker {

@@ -1,6 +1,7 @@
-package Beings_things.Aggressive_beings;
+package BeingsThings.BeingsAggressive;
 
-import Beings_things.Passive_beings.Entity;
+import BeingsThings.BeingsPassive.Entity;
+
 import MainSystem.GamePanel;
 
 import java.io.IOException;

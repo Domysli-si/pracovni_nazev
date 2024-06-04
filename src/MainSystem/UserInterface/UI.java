@@ -1,7 +1,7 @@
 package MainSystem.UserInterface;
 
-import Beings_things.Passive_beings.Entity;
-import Beings_things.Stats.OBJ_Heart;
+import BeingsThings.BeingsPassive.Entity;
+import BeingsThings.Stats.OBJ_Heart;
 import MainSystem.GamePanel;
 
 import java.awt.*;

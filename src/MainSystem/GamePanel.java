@@ -1,7 +1,7 @@
 package MainSystem;
 
-import Beings_things.Passive_beings.Entity;
-import Beings_things.Passive_beings.Player;
+import BeingsThings.BeingsPassive.Entity;
+import BeingsThings.BeingsPassive.Player;
 import MainSystem.Environment.AssetSetter;
 import MainSystem.Environment.CollisionChecker;
 import MainSystem.Environment.EventHandler;
@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
 
 public class GamePanel extends JPanel implements Runnable {
 

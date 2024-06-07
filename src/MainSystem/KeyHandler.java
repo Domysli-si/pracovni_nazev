@@ -19,7 +19,7 @@ public class KeyHandler implements KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
-    public KeyHandler(GamePanel gp) {
+    public KeyHandler(GamePanel gp) throws IOException {
         this.gp = gp;
     }
 
@@ -59,18 +59,7 @@ public class KeyHandler implements KeyListener {
 
     public void titleState(int code) {
         if (gp.ui.titleScreenState == 0) {
-            if (code == KeyEvent.VK_W) {
-                gp.ui.commandNum--;
-                if (gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = 2;
-                }
-            }
-            if (code == KeyEvent.VK_S) {
-                gp.ui.commandNum++;
-                if (gp.ui.commandNum > 2) {
-                    gp.ui.commandNum = 0;
-                }
-            }
+            Movement(code);
             if (code == KeyEvent.VK_ENTER) {
                 if (gp.ui.commandNum == 0) {
                     gp.ui.titleScreenState = 1;
@@ -83,38 +72,40 @@ public class KeyHandler implements KeyListener {
 
                 }
             }
-        }
-        if (gp.ui.titleScreenState == 1) {
-            if (code == KeyEvent.VK_W) {
-                gp.ui.commandNum--;
-                if (gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = 2;
-                }
-            }
-            if (code == KeyEvent.VK_S) {
-                gp.ui.commandNum++;
-                if (gp.ui.commandNum > 2) {
-                    gp.ui.commandNum = 0;
-                }
-            }
+        } else if (gp.ui.titleScreenState == 1) {
+            Movement(code);
             if (code == KeyEvent.VK_ENTER) {
                 if (gp.ui.commandNum == 0) {
-                    System.out.println("Fighter stats");
                     gp.gameState = gp.playState;
+                    gp.player.numSelection = 1;
                 }
                 if (gp.ui.commandNum == 1) {
-                    System.out.println("Thief stats");
                     gp.gameState = gp.playState;
+                    gp.player.numSelection = 2;
                 }
                 if (gp.ui.commandNum == 2) {
-                    System.out.println("Sorcerer stats");
                     gp.gameState = gp.playState;
-
+                    gp.player.numSelection = 3;
                 }
                 if (gp.ui.commandNum == 3) {
                     gp.ui.titleScreenState = 0;
 
                 }
+            }
+        }
+    }
+
+    private void Movement(int code) {
+        if (code == KeyEvent.VK_W) {
+            gp.ui.commandNum--;
+            if (gp.ui.commandNum < 0) {
+                gp.ui.commandNum = 2;
+            }
+        }
+        if (code == KeyEvent.VK_S) {
+            gp.ui.commandNum++;
+            if (gp.ui.commandNum > 2) {
+                gp.ui.commandNum = 0;
             }
         }
     }

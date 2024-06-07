@@ -1,6 +1,6 @@
 package MainSystem.UserInterface;
 
-import BeingsThings.BeingsPassive.Entity;
+import BeingsThings.Being.Entity;
 import BeingsThings.Stats.OBJ_Heart;
 import MainSystem.GamePanel;
 
@@ -185,7 +185,7 @@ public class UI {
             }
 
 
-        } else if (titleScreenState == 1) {
+        }else if (titleScreenState == 1) {
             //Class selection screen
             g2.setColor(Color.white);
             g2.setFont(g2.getFont().deriveFont(42F));
@@ -269,7 +269,6 @@ public class UI {
 
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(24F));
-
         int textX = frameX + 20;
         int textY = frameY + gp.tileSize;
         final int lineHeight = 50;
@@ -372,20 +371,20 @@ public class UI {
         int cursorY = slotYStart + (slotSize * slotRow);
         int cursorWidth = gp.tileSize;
         int cursorHeight = gp.tileSize;
-        // Draw cursosr
+
+        // Draw cursor
         g2.setColor(Color.white);
         g2.setStroke(new BasicStroke(3));
         g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
 
         //Description frame
-        int dFrameX = frameX;
+
         int dFrameY = frameY + frameHeight;
-        int dFrameWidth = frameWidth;
         int dFrameHeight = gp.tileSize * 3;
-        drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+        drawSubWindow(frameX, dFrameY, frameWidth, dFrameHeight);
 
         //draw desc. text
-        int textX = dFrameX + 20;
+        int textX = frameX + 20;
         int textY = dFrameY + gp.tileSize;
         g2.setFont(g2.getFont().deriveFont(24F));
 

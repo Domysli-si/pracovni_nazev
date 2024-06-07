@@ -23,3 +23,10 @@ public class Main {
         gp.startGameThread();
     }
 }
+
+/* TODO
+    - players class selection
+    - more items and weapons
+    - moving thru teleports
+    - labyrinth map
+*/

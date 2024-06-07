@@ -1,4 +1,4 @@
-package BeingsThings.BeingsPassive;
+package BeingsThings.Being;
 
 import BeingsThings.Items.OBJ_Key;
 import BeingsThings.Items.Tools.OBJ_Shield;
@@ -22,8 +22,7 @@ public class Player extends Entity {
     public final int screenY;
     int standCounter = 0;
     public ArrayList<Entity> inventory = new ArrayList<>();
-
-
+    public int numSelection;
 
     public Player(GamePanel gp, KeyHandler kH) throws IOException {
         super(gp);
@@ -71,6 +70,21 @@ public class Player extends Entity {
         currentShield = new OBJ_Shield(gp);
         attack = getAttack();
         defense = getDefense();
+    }
+
+    public void classSelection() {
+       if(numSelection == 1){
+           gp.player.attack += 10;
+           maxLife = maxLife+1;
+           speed = speed-5;
+       }
+       if(numSelection==2){
+           speed = speed*2;
+       }
+       if(numSelection==3){
+           coin = coin +100;
+       }
+
     }
 
     public void setItems() throws IOException {
@@ -132,9 +146,9 @@ public class Player extends Entity {
             collisionOn = false;
             gp.collisionChecker.checkTile(this);
 
-            //Check object collision
+            /*//Check object collision
             int objIndex = gp.collisionChecker.checkObject(this, true);
-            pickUpObject(objIndex);
+            pickUpObject(objIndex);*/
 
             //Check NPC collision
             int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
@@ -244,13 +258,10 @@ public class Player extends Entity {
     }
 
     //Choosing what happens with item if player touches it.
-    public void pickUpObject(int i) {
-
+   /* public void pickUpObject(int i) {
         if (i != 999) {
-
         }
-
-    }
+    }*/
 
     public void interactNPC(int i) {
 
@@ -267,7 +278,7 @@ public class Player extends Entity {
         gp.kH.enterPressed = false;
     }
 
-    public void contactMonster(int i)  {
+    public void contactMonster(int i) {
         if (i != 999) {
             if (!invincible) {
                 int damage = gp.mon[i].attack - defense;
@@ -318,7 +329,7 @@ public class Player extends Entity {
 
             gp.playSE(7);
             gp.gameState = gp.dialogState;
-            gp.ui.currentDialog = "You are level " + level + " now!\n"+ "You feel stronger!";
+            gp.ui.currentDialog = "You are level " + level + " now!\n" + "You feel stronger!";
         }
     }
 

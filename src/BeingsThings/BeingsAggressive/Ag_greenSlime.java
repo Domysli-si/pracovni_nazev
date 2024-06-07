@@ -1,6 +1,6 @@
 package BeingsThings.BeingsAggressive;
 
-import BeingsThings.BeingsPassive.Entity;
+import BeingsThings.Being.Entity;
 
 import MainSystem.GamePanel;
 

@@ -1,7 +1,7 @@
 package MainSystem;
 
-import BeingsThings.BeingsPassive.Entity;
-import BeingsThings.BeingsPassive.Player;
+import BeingsThings.Being.Entity;
+import BeingsThings.Being.Player;
 import MainSystem.Environment.AssetSetter;
 import MainSystem.Environment.CollisionChecker;
 import MainSystem.Environment.EventHandler;
@@ -112,18 +112,14 @@ public class GamePanel extends JPanel implements Runnable {
                 repaint();
                 delta--;
                 drawCount++;
+                //Showing FPS
+                if (timer >= 1000000000) {
+                    System.out.println("FPS:" + drawCount);
+                    drawCount = 0;
+                    timer = 0;
+                }
             }
-
-            //Showing FPS
-            if (timer >= 1000000000) {
-                System.out.println("FPS:" + drawCount);
-                drawCount = 0;
-                timer = 0;
-            }
-
-
         }
-
     }
 
     //Update player position
@@ -216,12 +212,21 @@ public class GamePanel extends JPanel implements Runnable {
         //DEBUG
         if (kH.showDebugText) {
             long drawEnd = System.nanoTime();
+            //Frame
+            int frameX = tileSize / 8;
+            int frameY = tileSize *8;
+            int frameWidth = tileSize * 4;
+            int frameHeight = tileSize * 3;
+            ui.drawSubWindow(frameX, frameY, frameWidth, frameHeight);
             long passed = drawEnd - drawStart;
             g2.setFont(new Font("Arial", Font.PLAIN, 20));
             g2.setColor(Color.white);
-            int x = 10;
-            int y = 400;
-            int lineHeight = 20;
+            final int lineHeight = 30;
+            int x = frameX +20;
+            int y = frameY + lineHeight;
+            g2.drawString("FPS: " + FPS, x, y);
+            y += lineHeight;
+            g2.drawString("Draw Time: " + passed, x, y);
             y += lineHeight;
             g2.drawString("X: " + player.worldX, x, y);
             y += lineHeight;
@@ -231,9 +236,6 @@ public class GamePanel extends JPanel implements Runnable {
             y += lineHeight;
             g2.drawString("Row: " + (player.worldY + player.solidArea.y) / tileSize, x, y);
             y += lineHeight;
-
-            g2.drawString("Draw Time" + passed, 10, 400);
-            System.out.println("Draw Time:" + passed);
         }
         g2.dispose();
     }

@@ -9,8 +9,8 @@ import java.util.Random;
 public class NPC_OldMan extends Entity {
     public NPC_OldMan(GamePanel gp) throws IOException {
         super(gp);
-        direction = "down";
-        speed = 10;
+        direction = "right";
+        speed = 3;
         getImage();
         setDialogue();
     }

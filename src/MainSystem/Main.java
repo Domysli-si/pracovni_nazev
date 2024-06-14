@@ -25,8 +25,10 @@ public class Main {
 }
 
 /* TODO
-    - players class selection
+    (- players class selection)
     - more items and weapons
     - moving thru teleports
     - labyrinth map
+    - change stats
+    -
 */

@@ -19,7 +19,7 @@ public class KeyHandler implements KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
-    public KeyHandler(GamePanel gp) throws IOException {
+    public KeyHandler(GamePanel gp) {
         this.gp = gp;
     }
 
@@ -30,6 +30,9 @@ public class KeyHandler implements KeyListener {
         //Title state
         if (gp.gameState == gp.titleState) {
             titleState(code);
+        //Select class state
+        } else if (gp.gameState == gp.classSelectionState) {
+            classSelectionState(code);
         }
         //Play state
         else if (gp.gameState == gp.playState) {
@@ -58,54 +61,37 @@ public class KeyHandler implements KeyListener {
     }
 
     public void titleState(int code) {
-        if (gp.ui.titleScreenState == 0) {
-            Movement(code);
-            if (code == KeyEvent.VK_ENTER) {
-                if (gp.ui.commandNum == 0) {
-                    gp.ui.titleScreenState = 1;
-                }
-                if (gp.ui.commandNum == 1) {
-                    //later
-                }
-                if (gp.ui.commandNum == 2) {
-                    System.exit(0);
-
-                }
+        Movement(code);
+        if (code == KeyEvent.VK_ENTER) {
+            if (gp.ui.commandNum == 0) {
+                classSelectionState(code);
             }
-        } else if (gp.ui.titleScreenState == 1) {
-            Movement(code);
-            if (code == KeyEvent.VK_ENTER) {
-                if (gp.ui.commandNum == 0) {
-                    gp.gameState = gp.playState;
-                    gp.player.numSelection = 1;
-                }
-                if (gp.ui.commandNum == 1) {
-                    gp.gameState = gp.playState;
-                    gp.player.numSelection = 2;
-                }
-                if (gp.ui.commandNum == 2) {
-                    gp.gameState = gp.playState;
-                    gp.player.numSelection = 3;
-                }
-                if (gp.ui.commandNum == 3) {
-                    gp.ui.titleScreenState = 0;
-
-                }
+            if (gp.ui.commandNum == 1) {
+                //later
+            }
+            if (gp.ui.commandNum == 2) {
+                System.exit(0);
             }
         }
     }
 
-    private void Movement(int code) {
-        if (code == KeyEvent.VK_W) {
-            gp.ui.commandNum--;
-            if (gp.ui.commandNum < 0) {
-                gp.ui.commandNum = 2;
+    public void classSelectionState(int code) {
+        Movement(code);
+        if (code == KeyEvent.VK_ENTER) {
+            if (gp.ui.commandNum == 0) {
+                gp.gameState = gp.playState;
+                gp.player.fighter();
             }
-        }
-        if (code == KeyEvent.VK_S) {
-            gp.ui.commandNum++;
-            if (gp.ui.commandNum > 2) {
-                gp.ui.commandNum = 0;
+            if (gp.ui.commandNum == 1) {
+                gp.gameState = gp.playState;
+                gp.player.thief();
+            }
+            if (gp.ui.commandNum == 2) {
+                gp.gameState = gp.playState;
+                gp.player.mage();
+            }
+            if (gp.ui.commandNum == 3) {
+                titleState(code);
             }
         }
     }
@@ -186,6 +172,21 @@ public class KeyHandler implements KeyListener {
 
     }
 
+    private void Movement(int code) {
+        if (code == KeyEvent.VK_W) {
+            gp.ui.commandNum--;
+            if (gp.ui.commandNum < 0) {
+                gp.ui.commandNum = 3;
+            }
+        }
+        if (code == KeyEvent.VK_S) {
+            gp.ui.commandNum++;
+            if (gp.ui.commandNum > 3) {
+                gp.ui.commandNum = 0;
+            }
+        }
+    }
+
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
@@ -202,4 +203,5 @@ public class KeyHandler implements KeyListener {
             rightPressed = false;
         }
     }
+
 }

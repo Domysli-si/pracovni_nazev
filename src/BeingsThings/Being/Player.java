@@ -22,7 +22,7 @@ public class Player extends Entity {
     public final int screenY;
     int standCounter = 0;
     public ArrayList<Entity> inventory = new ArrayList<>();
-    public int numSelection;
+
 
     public Player(GamePanel gp, KeyHandler kH) throws IOException {
         super(gp);
@@ -57,35 +57,46 @@ public class Player extends Entity {
         direction = "down";
 
         //STATS
-        speed = 13;
+        currentWeapon = new OBJ_Sword(gp);
+        currentShield = new OBJ_Shield(gp);
+
         maxLife = 12;
         life = maxLife;
+
         level = 1;
         exp = 0;
         nextLevelExp = 5;
-        coin = 0;
-        strength = 1;
-        dexterity = 1;
-        currentWeapon = new OBJ_Sword(gp);
-        currentShield = new OBJ_Shield(gp);
         attack = getAttack();
+        speed = 13;
+        dexterity = 1;
         defense = getDefense();
+        coin = 0;
     }
 
-    public void classSelection() {
-       if(numSelection == 1){
-           gp.player.attack += 10;
-           maxLife = maxLife+1;
-           speed = speed-5;
-       }
-       if(numSelection==2){
-           speed = speed*2;
-       }
-       if(numSelection==3){
-           coin = coin +100;
-       }
 
+    public void fighter() {
+        System.out.print("Fighter");
+        gp.player.attack += 10;
+        maxLife+=2;
+        life += 2;
+        speed -= 5;
     }
+
+    public void thief() {
+        System.out.println("Thief");
+        speed += 3;
+        attack += 3;
+        maxLife -= 2;
+        life -= 2;
+    }
+    public void mage (){
+        System.out.println("Mage");
+        coin += 10;
+        life -=4;
+        maxLife -=4;
+        attack +=1;
+    }
+
 
     public void setItems() throws IOException {
         inventory.add(currentWeapon);

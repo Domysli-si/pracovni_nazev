@@ -38,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //FPS
     int FPS = 60;
+    private double currentFPS;
 
     //System
     public TileManager tileManager = new TileManager(this);
@@ -59,11 +60,11 @@ public class GamePanel extends JPanel implements Runnable {
     //Game states
     public int gameState;
     public final int titleState = 0;
-    public final int playState = 1;
-    public final int pauseState = 2;
-    public final int dialogState = 3;
-    public final int statsScreenState = 4;
-
+    public final int classSelectionState =1;
+    public final int playState = 2;
+    public final int pauseState = 3;
+    public final int dialogState = 4;
+    public final int statsScreenState = 5;
 
     Thread gameThread;
 
@@ -89,7 +90,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     @Override
-    public void run() {// GameLoop = core of our game
+    public void run() {
+        // GameLoop = core of our game
         double drawInterval = (double) 1000000000 / FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
@@ -114,7 +116,7 @@ public class GamePanel extends JPanel implements Runnable {
                 drawCount++;
                 //Showing FPS
                 if (timer >= 1000000000) {
-                    System.out.println("FPS:" + drawCount);
+                    currentFPS = drawCount;
                     drawCount = 0;
                     timer = 0;
                 }
@@ -129,10 +131,9 @@ public class GamePanel extends JPanel implements Runnable {
             //Player
             player.update();
             //NPC
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null) {
-                    npc[i].update();
-
+            for (Entity entity : npc) {
+                if (entity != null) {
+                    entity.update();
                 }
             }
             //Monster
@@ -147,8 +148,6 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
         }
-
-        if (gameState == pauseState) {/*nothing*/}
     }
 
     public void paintComponent(Graphics g) {
@@ -188,10 +187,9 @@ public class GamePanel extends JPanel implements Runnable {
                 if (entity != null) {
                     entities.add(entity);
                 }
-
-
+                
                 //Giving priority by sort methods
-                Collections.sort(entities, new Comparator<Entity>() {
+                entities.sort(new Comparator<Entity>() {
                     @Override
                     public int compare(Entity o1, Entity o2) {
                         return Integer.compare(o1.worldX, o2.worldY);
@@ -199,8 +197,8 @@ public class GamePanel extends JPanel implements Runnable {
                 });
 
                 //Draw entities
-                for (int i = 0; i < entities.size(); i++) {
-                    entities.get(i).draw(g2);
+                for (Entity value : entities) {
+                    value.draw(g2);
                 }
                 //Empty list
                 entities.clear();
@@ -214,7 +212,7 @@ public class GamePanel extends JPanel implements Runnable {
             long drawEnd = System.nanoTime();
             //Frame
             int frameX = tileSize / 8;
-            int frameY = tileSize *8;
+            int frameY = tileSize * 8;
             int frameWidth = tileSize * 4;
             int frameHeight = tileSize * 3;
             ui.drawSubWindow(frameX, frameY, frameWidth, frameHeight);
@@ -222,9 +220,9 @@ public class GamePanel extends JPanel implements Runnable {
             g2.setFont(new Font("Arial", Font.PLAIN, 20));
             g2.setColor(Color.white);
             final int lineHeight = 30;
-            int x = frameX +20;
+            int x = frameX + 20;
             int y = frameY + lineHeight;
-            g2.drawString("FPS: " + FPS, x, y);
+            g2.drawString("FPS: " + currentFPS, x, y);
             y += lineHeight;
             g2.drawString("Draw Time: " + passed, x, y);
             y += lineHeight;
